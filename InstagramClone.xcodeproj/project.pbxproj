@@ -12,6 +12,14 @@
 		C50C9D0D22ED12A700A22A5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D0B22ED12A700A22A5D /* Main.storyboard */; };
 		C50C9D0F22ED12AA00A22A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */; };
 		C50C9D1222ED12AA00A22A5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D1022ED12AA00A22A5D /* LaunchScreen.storyboard */; };
+		C50C9D2222ED1F9100A22A5D /* UILabel+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1A22ED1F9100A22A5D /* UILabel+Helper.swift */; };
+		C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1B22ED1F9100A22A5D /* UIButton+Helper.swift */; };
+		C50C9D2422ED1F9100A22A5D /* UIStackView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1C22ED1F9100A22A5D /* UIStackView+Helper.swift */; };
+		C50C9D2522ED1F9100A22A5D /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1D22ED1F9100A22A5D /* UIView+Anchors.swift */; };
+		C50C9D2622ED1F9100A22A5D /* CALayer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1E22ED1F9100A22A5D /* CALayer+Helper.swift */; };
+		C50C9D2722ED1F9100A22A5D /* UIColor+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1F22ED1F9100A22A5D /* UIColor+Helper.swift */; };
+		C50C9D2822ED1F9100A22A5D /* UITextView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D2022ED1F9100A22A5D /* UITextView+Helper.swift */; };
+		C50C9D2922ED1F9100A22A5D /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D2122ED1F9100A22A5D /* UIImage+Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +30,14 @@
 		C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C50C9D1122ED12AA00A22A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C50C9D1322ED12AA00A22A5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C50C9D1A22ED1F9100A22A5D /* UILabel+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Helper.swift"; sourceTree = "<group>"; };
+		C50C9D1B22ED1F9100A22A5D /* UIButton+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Helper.swift"; sourceTree = "<group>"; };
+		C50C9D1C22ED1F9100A22A5D /* UIStackView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Helper.swift"; sourceTree = "<group>"; };
+		C50C9D1D22ED1F9100A22A5D /* UIView+Anchors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
+		C50C9D1E22ED1F9100A22A5D /* CALayer+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Helper.swift"; sourceTree = "<group>"; };
+		C50C9D1F22ED1F9100A22A5D /* UIColor+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Helper.swift"; sourceTree = "<group>"; };
+		C50C9D2022ED1F9100A22A5D /* UITextView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Helper.swift"; sourceTree = "<group>"; };
+		C50C9D2122ED1F9100A22A5D /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Helper.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +70,7 @@
 		C50C9D0622ED12A700A22A5D /* InstagramClone */ = {
 			isa = PBXGroup;
 			children = (
+				C50C9D1922ED13AD00A22A5D /* UIHelper */,
 				C50C9D0722ED12A700A22A5D /* AppDelegate.swift */,
 				C50C9D0922ED12A700A22A5D /* ViewController.swift */,
 				C50C9D0B22ED12A700A22A5D /* Main.storyboard */,
@@ -62,6 +79,21 @@
 				C50C9D1322ED12AA00A22A5D /* Info.plist */,
 			);
 			path = InstagramClone;
+			sourceTree = "<group>";
+		};
+		C50C9D1922ED13AD00A22A5D /* UIHelper */ = {
+			isa = PBXGroup;
+			children = (
+				C50C9D1E22ED1F9100A22A5D /* CALayer+Helper.swift */,
+				C50C9D1B22ED1F9100A22A5D /* UIButton+Helper.swift */,
+				C50C9D1F22ED1F9100A22A5D /* UIColor+Helper.swift */,
+				C50C9D2122ED1F9100A22A5D /* UIImage+Helper.swift */,
+				C50C9D1A22ED1F9100A22A5D /* UILabel+Helper.swift */,
+				C50C9D1C22ED1F9100A22A5D /* UIStackView+Helper.swift */,
+				C50C9D2022ED1F9100A22A5D /* UITextView+Helper.swift */,
+				C50C9D1D22ED1F9100A22A5D /* UIView+Anchors.swift */,
+			);
+			path = UIHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +167,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C50C9D2422ED1F9100A22A5D /* UIStackView+Helper.swift in Sources */,
+				C50C9D2522ED1F9100A22A5D /* UIView+Anchors.swift in Sources */,
+				C50C9D2222ED1F9100A22A5D /* UILabel+Helper.swift in Sources */,
+				C50C9D2822ED1F9100A22A5D /* UITextView+Helper.swift in Sources */,
+				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
+				C50C9D2622ED1F9100A22A5D /* CALayer+Helper.swift in Sources */,
 				C50C9D0A22ED12A700A22A5D /* ViewController.swift in Sources */,
+				C50C9D2922ED1F9100A22A5D /* UIImage+Helper.swift in Sources */,
 				C50C9D0822ED12A700A22A5D /* AppDelegate.swift in Sources */,
+				C50C9D2722ED1F9100A22A5D /* UIColor+Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
