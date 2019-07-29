@@ -24,71 +24,6 @@ extension UIView {
         }
     }
     
-    public func anchorTopLeftWidthAndHeight(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat, leftConstant: CGFloat,width: CGFloat, height: CGFloat) {
-        anchor(top, left: left, bottom: nil, right: nil, topConstant: topConstant, leftConstant: leftConstant, bottomConstant: 0, rightConstant: 0, widthConstant: width, heightConstant: height)
-    }
-    
-    public func anchorTopRightWidthAndHeight(top: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat, rightConstant: CGFloat,width: CGFloat, height: CGFloat) {
-        anchor(top, left: nil, bottom: nil, right: right, topConstant: topConstant, leftConstant: 0, bottomConstant: 0, rightConstant: rightConstant, widthConstant: width, heightConstant: height)
-    }
-    
-    public func anchorBottomLeftWidthAndHeight(width: CGFloat, height: CGFloat) {
-        anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: width, heightConstant: height)
-        if let superview = superview {
-            leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
-            bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-        }
-    }
-    public func anchorBottomRightWidthAndHeight(width: CGFloat, height: CGFloat) {
-        anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: width, heightConstant: height)
-        if let superview = superview {
-            rightAnchor.constraint(equalTo: superview.rightAnchor).isActive = true
-            bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-        }
-    }
-    
-    public func anchorCenterYLeftWidthHeight(width: CGFloat, height: CGFloat) {
-        anchorCenterYToSuperview()
-        anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: width, heightConstant: height)
-        
-    }
-    public func anchorCenterYLeftRightHeight(height: CGFloat) {
-        anchorCenterYToSuperview()
-        anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: height)
-        
-    }
-    public func anchorTopLeftRight() {
-        anchorLeftRight()
-        if let superview = superview {
-            topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-        }
-    }
-    
-    public func anchorBottomLeftRight() {
-        anchorLeftRight()
-        if let superview = superview {
-            bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-        }
-    }
-    
-    public func anchorTopLeftRightAndHeight(heightConstant: CGFloat = 0) {
-        anchorTopLeftRight()
-        _ = anchorWithReturnAnchors(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: heightConstant)
-    }
-    
-    public func anchorBottomLeftRightAndHeight(heightConstant: CGFloat = 0) {
-        anchorBottomLeftRight()
-        _ = anchorWithReturnAnchors(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: heightConstant)
-    }
-    
-    public func anchorLeftRight() {
-        translatesAutoresizingMaskIntoConstraints = false
-        if let superview = superview {
-            leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
-            rightAnchor.constraint(equalTo: superview.rightAnchor).isActive = true
-        }
-    }
-    
     public func anchor(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0, centerXInSuperView: Bool = false, centerYInSuperView: Bool = false) {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -99,11 +34,6 @@ extension UIView {
         if centerYInSuperView {
             anchorCenterYToSuperview()
         }
-    }
-    
-    public func anchorWidthHeight(widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) {
-        translatesAutoresizingMaskIntoConstraints = false
-        anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: widthConstant, heightConstant: heightConstant)
     }
     
     public func anchorWithReturnAnchors(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) -> [NSLayoutConstraint] {
@@ -157,15 +87,5 @@ extension UIView {
     public func anchorCenterSuperview(constantX: CGFloat = 0, constantY: CGFloat = 0) {
         anchorCenterXToSuperview(constant: constantX)
         anchorCenterYToSuperview(constant: constantY)
-    }
-    
-    public func anchorCenterWithWidthAndHeight(width: CGFloat, height: CGFloat) {
-        anchorCenterSuperview()
-        anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: width, heightConstant: height)
-    }
-    
-    public func anchorCenterWidthAndHeight(widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) {
-        anchorCenterSuperview()
-        anchorWidthHeight(widthConstant: widthConstant, heightConstant: heightConstant)
     }
 }

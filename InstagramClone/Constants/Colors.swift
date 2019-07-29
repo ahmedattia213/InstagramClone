@@ -10,7 +10,8 @@ import UIKit
 
 extension UIColor {
     //Signup Colors
-    static let signupButton = UIColor(hex: 0x95ccf4)
+    static let dimmedSignupButton = UIColor(hex: 0x95ccf4)
+    static let signupButton = UIColor(hex: 0x1199ed)
     static let signupTextfield = UIColor(white: 0, alpha: 0.03)
 }
 
