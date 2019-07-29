@@ -1,6 +1,6 @@
 //
 //  UIStackView+Helper.swift
-//  BestFit
+//  InstagramClone
 //
 //  Created by Ahmed Amr on 7/16/19.
 //  Copyright © 2019 BestFit GmbH. All rights reserved.

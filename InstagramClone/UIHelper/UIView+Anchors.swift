@@ -1,6 +1,6 @@
 //
 //  UIView+Anchors.swift
-//  Youtube
+//  InstagramClone
 //
 //  Edited by Ahmed Amr on 3/3/19.
 //  Credits to Brian Voong

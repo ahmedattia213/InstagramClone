@@ -7,9 +7,10 @@
 //
 
 import UIKit
-import FirebaseAuth
+import Firebase
 
 class ViewController: UIViewController {
+    var imagePicker: ImagePickerHelper!
     let plusPhotoButton = UIButton.systemButton(image: UIImage(named: "plus_photo"), target: self, selector: #selector(handlePhotoButton))
 
     let emailTextfield: UITextField = {
@@ -54,6 +55,8 @@ class ViewController: UIViewController {
     
     @objc func handlePhotoButton() {
         print("hello")
+        imagePicker = ImagePickerHelper(presentedViewController: self, delegate: self)
+        imagePicker.present(from: self.view)
     }
     
     @objc func handleSignup() {
@@ -67,6 +70,19 @@ class ViewController: UIViewController {
                 return
             }
             print("Successfully created a user")
+            
+            guard let uid = user?.user.uid else { return }
+            let usernameValue = [ "username": username ]
+            let values =  [ uid : usernameValue ]
+            
+            FirebaseHelper.usersDatabase.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if let err = err {
+                    print("Failed to update users database: ",err)
+                    return
+                }
+                print("Successfully saved user's username to our db")
+            })
+            
         }
     }
     
@@ -98,3 +114,11 @@ class ViewController: UIViewController {
 
 }
 
+
+extension ViewController: ImagePickerDelegate {
+    func didSelect(selectedMedia: Any?) {
+        plusPhotoButton.setImage((selectedMedia as? UIImage)?.withRenderingMode(.alwaysOriginal), for: .normal)
+    }
+    
+    
+}

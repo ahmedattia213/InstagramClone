@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 extension UIColor {
     //Signup Colors
@@ -15,3 +16,6 @@ extension UIColor {
     static let signupTextfield = UIColor(white: 0, alpha: 0.03)
 }
 
+class FirebaseHelper {
+    static let usersDatabase = Database.database().reference().child("users")
+}

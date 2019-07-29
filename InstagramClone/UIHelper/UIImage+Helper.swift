@@ -1,6 +1,6 @@
 //
 //  UIImage+Helper.swift
-//  Youtube
+//  InstagramClone
 //
 //  Created by Ahmed Amr on 3/3/19.
 //  Copyright © 2019 Ahmed Amr. All rights reserved.

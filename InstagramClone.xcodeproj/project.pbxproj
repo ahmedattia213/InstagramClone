@@ -24,6 +24,7 @@
 		C50C9D2C22ED553500A22A5D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D2B22ED553500A22A5D /* Colors.swift */; };
 		C50C9D2E22ED563A00A22A5D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D2D22ED563A00A22A5D /* Fonts.swift */; };
 		C50C9D3022EE8B8E00A22A5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D2F22EE8B8E00A22A5D /* GoogleService-Info.plist */; };
+		C50C9D3422EFAD0400A22A5D /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		C50C9D2B22ED553500A22A5D /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C50C9D2D22ED563A00A22A5D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		C50C9D2F22EE8B8E00A22A5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
 		ED2C5178FE4642BC9A98A19B /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -124,6 +126,7 @@
 				C50C9D1C22ED1F9100A22A5D /* UIStackView+Helper.swift */,
 				C50C9D2022ED1F9100A22A5D /* UITextView+Helper.swift */,
 				C50C9D1D22ED1F9100A22A5D /* UIView+Anchors.swift */,
+				C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */,
 			);
 			path = UIHelper;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				C50C9D2E22ED563A00A22A5D /* Fonts.swift in Sources */,
 				C50C9D2822ED1F9100A22A5D /* UITextView+Helper.swift in Sources */,
 				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
+				C50C9D3422EFAD0400A22A5D /* ImagePickerHelper.swift in Sources */,
 				C50C9D2622ED1F9100A22A5D /* CALayer+Helper.swift in Sources */,
 				C50C9D0A22ED12A700A22A5D /* ViewController.swift in Sources */,
 				C50C9D2922ED1F9100A22A5D /* UIImage+Helper.swift in Sources */,

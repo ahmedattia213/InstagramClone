@@ -1,9 +1,9 @@
 //
 //  UIButton+Helper.swift
-//  BestFit
+//  InstagramClone
 //
 //  Created by Ahmed Amr on 4/16/19.
-//  Copyright © 2019 BestFit GmbH. All rights reserved.
+//  Copyright © 2019 Ahmed Amr. All rights reserved.
 //
 
 import UIKit
