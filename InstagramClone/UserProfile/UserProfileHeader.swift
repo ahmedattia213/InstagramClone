@@ -12,7 +12,7 @@ class UserProfileHeader: BaseReusableView {
     
     var user: User? {
         didSet {
-            //fetchUserProfileImage() // remove slashes 
+            //fetchUserProfileImage() // remove slashes
             usernameLabel.text = "ahmed amr attia" // user.username
             
         }
@@ -37,7 +37,7 @@ class UserProfileHeader: BaseReusableView {
     }()
     
     let editProfileButton: UIButton = {
-        let button = UIButton.systemButton(title: "Edit Profile", titleColor: .black, backgroundColor: UIColor(hex: 0xf5f5f5, alpha: 0.5), font: UIFont.boldSystemFont(ofSize: 12), target: self, selector: #selector(handleEditProfile))
+        let button = UIButton.systemButton(title: "Edit Profile", titleColor: .black, backgroundColor: .white, font: UIFont.boldSystemFont(ofSize: 12), target: self, selector: #selector(handleEditProfile))
         button.layer.cornerRadius = 3
         button.clipsToBounds = true
         button.layer.borderWidth = 0.5
@@ -51,21 +51,21 @@ class UserProfileHeader: BaseReusableView {
     let postsLabel: UILabel = {
         let label = UILabel(text: "11\nPosts", font: UIFont.systemFont(ofSize: 13), color: .black, textAlignment: .center, numberOfLines: 2)
         let attributedText = NSMutableAttributedString(string: "11\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSMutableAttributedString(string: "Posts", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        attributedText.append(NSMutableAttributedString(string: "Posts", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11), NSAttributedString.Key.foregroundColor: UIColor.black]))
         label.attributedText = attributedText
         return label
     }()
     let followersLabel: UILabel = {
         let label = UILabel(text: "250\nFollowers", font: UIFont.systemFont(ofSize: 13), color: .black, textAlignment: .center, numberOfLines: 2)
         let attributedText = NSMutableAttributedString(string: "250\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSMutableAttributedString(string: "Followers", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14) , NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        attributedText.append(NSMutableAttributedString(string: "Followers", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11) , NSAttributedString.Key.foregroundColor: UIColor.black]))
         label.attributedText = attributedText
         return label
     }()
     let followingLabel: UILabel = {
         let label = UILabel(text: "216\nFollowing", font: UIFont.systemFont(ofSize: 13), color: .black, textAlignment: .center, numberOfLines: 2)
         let attributedText = NSMutableAttributedString(attributedString: NSAttributedString(string: "216\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
-        attributedText.append(NSAttributedString(string: "Following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        attributedText.append(NSAttributedString(string: "Following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11), NSAttributedString.Key.foregroundColor: UIColor.black]))
         label.attributedText = attributedText
         return label
     }()
@@ -79,9 +79,10 @@ class UserProfileHeader: BaseReusableView {
     let profileImageView = UIImageView(image: #imageLiteral(resourceName: "ahmed"), contentMode: .scaleAspectFill)
     
     override func setupViews() {
-        backgroundColor = UIColor(white: 0, alpha: 0.05)
+        backgroundColor = .background
         addSubviews(profileImageView,bottomToolBarStackview,usernameLabel,userStatsStackView,
                     editProfileButton)
+        
         setupProfileImageView()
         setupBottomToolBar()
         setupUsernameLabel()
@@ -95,7 +96,14 @@ class UserProfileHeader: BaseReusableView {
     }
     
     private func setupBottomToolBar() {
+        let separatorView = UIView()
+        separatorView.backgroundColor = .lightGray
+        addSubview(separatorView)
+        
+        
         bottomToolBarStackview.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 0, bottomConstant: 0, rightConstant: 0, heightConstant: 50)
+        
+        separatorView.anchor( left: leftAnchor, bottom: bottomToolBarStackview.topAnchor, right: rightAnchor, leftConstant: 0, bottomConstant: 0, rightConstant: 0, heightConstant: 0.5)
     }
     private func setupUsernameLabel() {
         usernameLabel.anchor(profileImageView.bottomAnchor, left: leftAnchor, topConstant: 15, leftConstant: 15)
@@ -104,7 +112,7 @@ class UserProfileHeader: BaseReusableView {
         userStatsStackView.anchor(topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, topConstant: 15, leftConstant: 12, rightConstant: 12, heightConstant: 40)
     }
     private func setupEditProfileButton() {
-        editProfileButton.anchor(usernameLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, topConstant: 25, leftConstant: 15, rightConstant: 15, heightConstant: 25)
+        editProfileButton.anchor(usernameLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, topConstant: 25, leftConstant: 15, rightConstant: 15, heightConstant: 30)
     }
     
     private func fetchUserProfileImage() {
