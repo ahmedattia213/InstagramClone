@@ -136,7 +136,7 @@ class ViewController: UIViewController {
 extension ViewController: ImagePickerDelegate {
     func didSelect(selectedMedia: Any?) {
         plusPhotoButton.setImage((selectedMedia as? UIImage)?.withRenderingMode(.alwaysOriginal), for: .normal)
-        plusPhotoButton.roundCircular()
+        plusPhotoButton.roundCircular(width: plusPhotoButton.frame.width)
         plusPhotoButton.layer.borderColor = (UIColor.black).cgColor
         plusPhotoButton.layer.borderWidth = 2
     }

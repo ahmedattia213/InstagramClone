@@ -25,6 +25,10 @@
 		C50C9D2E22ED563A00A22A5D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D2D22ED563A00A22A5D /* Fonts.swift */; };
 		C50C9D3022EE8B8E00A22A5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D2F22EE8B8E00A22A5D /* GoogleService-Info.plist */; };
 		C50C9D3422EFAD0400A22A5D /* ImagePickerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */; };
+		C50C9D3622EFD9AD00A22A5D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3522EFD9AD00A22A5D /* MainTabBarController.swift */; };
+		C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */; };
+		C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */; };
+		C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		C50C9D2D22ED563A00A22A5D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		C50C9D2F22EE8B8E00A22A5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHelper.swift; sourceTree = "<group>"; };
+		C50C9D3522EFD9AD00A22A5D /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cells+Helper.swift"; sourceTree = "<group>"; };
 		ED2C5178FE4642BC9A98A19B /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -102,8 +110,10 @@
 		C50C9D0622ED12A700A22A5D /* InstagramClone */ = {
 			isa = PBXGroup;
 			children = (
+				C50C9D3922F0059100A22A5D /* UserProfile */,
 				C50C9D0722ED12A700A22A5D /* AppDelegate.swift */,
 				C50C9D0922ED12A700A22A5D /* ViewController.swift */,
+				C50C9D3522EFD9AD00A22A5D /* MainTabBarController.swift */,
 				C50C9D0B22ED12A700A22A5D /* Main.storyboard */,
 				C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */,
 				C50C9D1022ED12AA00A22A5D /* LaunchScreen.storyboard */,
@@ -127,6 +137,7 @@
 				C50C9D2022ED1F9100A22A5D /* UITextView+Helper.swift */,
 				C50C9D1D22ED1F9100A22A5D /* UIView+Anchors.swift */,
 				C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */,
+				C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */,
 			);
 			path = UIHelper;
 			sourceTree = "<group>";
@@ -138,6 +149,15 @@
 				C50C9D2D22ED563A00A22A5D /* Fonts.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		C50C9D3922F0059100A22A5D /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */,
+				C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */,
+			);
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,10 +287,14 @@
 				C50C9D2822ED1F9100A22A5D /* UITextView+Helper.swift in Sources */,
 				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
 				C50C9D3422EFAD0400A22A5D /* ImagePickerHelper.swift in Sources */,
+				C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */,
 				C50C9D2622ED1F9100A22A5D /* CALayer+Helper.swift in Sources */,
 				C50C9D0A22ED12A700A22A5D /* ViewController.swift in Sources */,
+				C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */,
+				C50C9D3622EFD9AD00A22A5D /* MainTabBarController.swift in Sources */,
 				C50C9D2922ED1F9100A22A5D /* UIImage+Helper.swift in Sources */,
 				C50C9D0822ED12A700A22A5D /* AppDelegate.swift in Sources */,
+				C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */,
 				C50C9D2722ED1F9100A22A5D /* UIColor+Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
