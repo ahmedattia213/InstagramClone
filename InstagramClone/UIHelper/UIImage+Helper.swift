@@ -36,7 +36,6 @@ extension UIImage {
         return newImage
     }
     
-    
     func maskWithColor(color: UIColor) -> UIImage? {
         let maskImage = cgImage!
         

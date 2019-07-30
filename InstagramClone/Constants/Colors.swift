@@ -17,5 +17,8 @@ extension UIColor {
 }
 
 class FirebaseHelper {
+    //Database
     static let usersDatabase = Database.database().reference().child("users")
+    //Storage
+    static let profileImages = Storage.storage().reference().child("profile_images")
 }

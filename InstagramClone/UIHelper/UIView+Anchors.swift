@@ -10,6 +10,16 @@ import UIKit
 
 extension UIView {
     
+    func roundCircular() {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = self.frame.width/2
+    }
+    
+    func roundSmoothEdges() {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = self.frame.height/2
+    }
+    
     func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }

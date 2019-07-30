@@ -12,13 +12,13 @@ import Firebase
 class ViewController: UIViewController {
     var imagePicker: ImagePickerHelper!
     let plusPhotoButton = UIButton.systemButton(image: UIImage(named: "plus_photo"), target: self, selector: #selector(handlePhotoButton))
-
+    
     let emailTextfield: UITextField = {
         let tf = UITextField(placeholder: "Email", font: .signupTextfield, backgroundColor: .signupTextfield, borderStyle: .roundedRect)
         tf.addTarget(self, action: #selector(handleTextInputEditing), for: .editingChanged)
         return tf
     }()
-
+    
     let usernameTextfield: UITextField = {
         let tf = UITextField(placeholder: "Username", font: .signupTextfield, backgroundColor: .signupTextfield, borderStyle: .roundedRect)
         tf.addTarget(self, action: #selector(handleTextInputEditing), for: .editingChanged)
@@ -39,13 +39,13 @@ class ViewController: UIViewController {
         return button
     }()
     lazy var textfieldStackView = UIStackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 10, arrangedSubviews: [emailTextfield,usernameTextfield,
-                                         passwordTextfield,signupButton])
-
+                                                                                                                                             passwordTextfield,signupButton])
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
-
+    
     func setupUI() {
         view.addSubviews(plusPhotoButton,textfieldStackView)
         plusPhotoButton.anchor(view.topAnchor, topConstant: 40, widthConstant: 140, heightConstant: 140, centerXInSuperView: true)
@@ -71,24 +71,42 @@ class ViewController: UIViewController {
             }
             print("Successfully created a user")
             
-            guard let uid = user?.user.uid else { return }
-            let usernameValue = [ "username": username ]
-            let values =  [ uid : usernameValue ]
-            
-            FirebaseHelper.usersDatabase.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            guard let image = self.plusPhotoButton.imageView?.image else { return }
+            guard let uploadData = image.jpegData(compressionQuality: 0.3) else { return }
+            let fileName = UUID().uuidString
+            let storageRef = FirebaseHelper.profileImages.child(fileName)
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, err) in
                 if let err = err {
-                    print("Failed to update users database: ",err)
+                    print("Failed to save profile images to storage:", err)
                     return
                 }
-                print("Successfully saved user's username to our db")
+                storageRef.downloadURL(completion: { (downloadUrl, err) in
+                    if let err = err {
+                        print("Failed to fetch downloadURL:", err)
+                        return
+                    }
+                    print("Successfully uploaded image: ",downloadUrl?.absoluteString as Any)
+                    guard let profileImageUrl = downloadUrl?.absoluteString else { return }
+                    guard let uid = user?.user.uid else { return }
+                    let dictionaryValues = [ "username": username, "profileImageUrl": profileImageUrl]
+                    let values =  [ uid : dictionaryValues ]
+                    
+                    FirebaseHelper.usersDatabase.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                        if let err = err {
+                            print("Failed to update users database: ",err)
+                            return
+                        }
+                        
+                        print("Successfully saved user's username to our db")
+                    })
+                })
             })
-            
         }
     }
     
     @objc func handleTextInputEditing() {
         let isFormValid = isValidEmail(email: emailTextfield.text ?? "") && isValidPassword(password: passwordTextfield.text ?? "") && isValidUsername(username: usernameTextfield.text ?? "")
-  
+        
         if isFormValid {
             signupButton.backgroundColor = .signupButton
             signupButton.isEnabled = true
@@ -111,13 +129,16 @@ class ViewController: UIViewController {
     func isValidUsername(username: String) -> Bool {
         return username.count > 2
     }
-
+    
 }
 
 
 extension ViewController: ImagePickerDelegate {
     func didSelect(selectedMedia: Any?) {
         plusPhotoButton.setImage((selectedMedia as? UIImage)?.withRenderingMode(.alwaysOriginal), for: .normal)
+        plusPhotoButton.roundCircular()
+        plusPhotoButton.layer.borderColor = (UIColor.black).cgColor
+        plusPhotoButton.layer.borderWidth = 2
     }
     
     
