@@ -15,7 +15,7 @@ extension UIButton {
             button.frame = CGRect(x: 0, y: 0, width: size, height: size)
         }
         button.setTitle(title, for: .normal)
-        button.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(image, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = font
