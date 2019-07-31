@@ -15,6 +15,8 @@ extension UIColor {
     static let signupButton = UIColor(hex: 0x1199ed)
     static let signupTextfield = UIColor(white: 0, alpha: 0.03)
     
+    //Signin Color
+    static let logoBackground = UIColor(hex: 0x0078af)
     //background
     static let background = UIColor(hex: 0xf9f9f9)
 }

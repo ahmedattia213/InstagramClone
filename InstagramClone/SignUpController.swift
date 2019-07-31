@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SignUpController.swift
 //  InstagramClone
 //
 //  Created by Ahmed Amr on 7/28/19.
@@ -39,18 +39,33 @@ class SignUpController: UIViewController {
         return button
     }()
     lazy var textfieldStackView = UIStackView(axis: .vertical, alignment: .fill, distribution: .fillEqually, spacing: 10, arrangedSubviews: [emailTextfield,usernameTextfield,
-                                                                                                                                             passwordTextfield,signupButton])
+                                                                                                                    passwordTextfield,signupButton])
+    
+     let signInButton = UIButton.systemButton(title: "Already have an account? Sign In", titleColor: .lightGray, font: UIFont.systemFont(ofSize: 13), target: self, selector: #selector(handleShowSignIn))
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupUI()
     }
     
-    func setupUI() {
-        view.addSubviews(plusPhotoButton,textfieldStackView)
+    @objc func handleShowSignIn() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func setupUI() {
+        view.addSubviews(plusPhotoButton,textfieldStackView,signInButton)
         plusPhotoButton.anchor(view.topAnchor, topConstant: 40, widthConstant: 140, heightConstant: 140, centerXInSuperView: true)
         textfieldStackView.anchor(plusPhotoButton.bottomAnchor, topConstant: 20, heightConstant: 190, centerXInSuperView: true)
         textfieldStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
+        signInButton.anchor(bottom: view.bottomAnchor, bottomConstant: 6, centerXInSuperView: true)
+        setupSignInButtonText()
+    }
+    
+    private func setupSignInButtonText() {
+        let signInButtonText = NSMutableAttributedString(string: "Already have an account? ", attributes: nil)
+        signInButtonText.append(NSAttributedString(string: "Sign In", attributes: [NSAttributedString.Key.foregroundColor: UIColor.signupButton]))
+        signInButton.setAttributedTitle(signInButtonText, for: .normal)
     }
     
     @objc func handlePhotoButton() {
@@ -96,8 +111,8 @@ class SignUpController: UIViewController {
                             print("Failed to update users database: ",err)
                             return
                         }
-                        
                         print("Successfully saved user's username to our db")
+                        self.present(MainTabBarController(), animated: true, completion: nil)
                     })
                 })
             })
@@ -105,7 +120,7 @@ class SignUpController: UIViewController {
     }
     
     @objc func handleTextInputEditing() {
-        let isFormValid = isValidEmail(email: emailTextfield.text ?? "") && isValidPassword(password: passwordTextfield.text ?? "") && isValidUsername(username: usernameTextfield.text ?? "")
+        let isFormValid = ValidationsHelper.isValidEmail(emailTextfield.text ?? "") && ValidationsHelper.isValidPassword(passwordTextfield.text ?? "") && ValidationsHelper.isValidUsername(usernameTextfield.text ?? "")
         
         if isFormValid {
             signupButton.backgroundColor = .signupButton
@@ -115,21 +130,6 @@ class SignUpController: UIViewController {
             signupButton.isEnabled = false
         }
     }
-    
-    func isValidEmail(email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-    
-    func isValidPassword(password: String) -> Bool {
-        return password.count > 5
-    }
-    
-    func isValidUsername(username: String) -> Bool {
-        return username.count > 2
-    }
-    
 }
 
 

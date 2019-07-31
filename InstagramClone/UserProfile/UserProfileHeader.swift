@@ -12,8 +12,8 @@ class UserProfileHeader: BaseReusableView {
     
     var user: User? {
         didSet {
-            //fetchUserProfileImage() // remove slashes
-            usernameLabel.text = "ahmed amr attia" // user.username
+            fetchUserProfileImage()
+            usernameLabel.text = user?.username
             
         }
     }

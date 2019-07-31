@@ -23,8 +23,12 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         fetchUser()
         collectionView.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: UserProfileHeader.reuseId)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "id")
+        setupLogoutButton()
     }
     
+    private func setupLogoutButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogout))
+    }
     private func setupNavbar() {
         navigationController?.navigationBar.barTintColor = .background
         navigationController?.navigationBar.isTranslucent = false
@@ -41,6 +45,25 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         }) { (err) in
             print("Failed to fetch user: ",err)
         }
+    }
+    
+    @objc func handleLogout() {
+        print("Logout")
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let logoutAction = UIAlertAction(title: "Log Out", style: .destructive) { (_) in
+            print("Loggin OUT")
+            do {
+                try Auth.auth().signOut()
+                let navController = UINavigationController(rootViewController: LoginController())
+                self.present(navController, animated: true, completion: nil)
+            } catch let signoutError {
+                print("Failed to signout: ",signoutError)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(logoutAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
