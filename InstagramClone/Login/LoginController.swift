@@ -18,7 +18,7 @@ class LoginController: UIViewController {
         view.backgroundColor = .logoBackground
         let logo = UIImageView(image: #imageLiteral(resourceName: "Instagram_logo_white"), contentMode: .scaleAspectFill)
         view.addSubview(logo)
-        logo.anchor(widthConstant: 250, heightConstant: 80, centerXInSuperView: true, centerYInSuperView: true)
+        logo.anchor(widthConstant: 200, heightConstant: 60, centerXInSuperView: true, centerYInSuperView: true)
         return view
     }()
     
@@ -90,9 +90,12 @@ class LoginController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
             if let err = err {
                 print("Failed to log in: ",err)
-                err
+                return
             }
-            self.present(MainTabBarController(), animated: true, completion: nil)
+          //  self.present(MainTabBarController(), animated: true, completion: nil)
+            guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
+            mainTabBarController.setupViewControllers()
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }
