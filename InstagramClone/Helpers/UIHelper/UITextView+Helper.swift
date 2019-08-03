@@ -9,7 +9,7 @@
 import UIKit
 
 extension UITextView {
-    convenience init(text: String? ,font: UIFont?, color: UIColor?) {
+    convenience init(text: String?, font: UIFont?, color: UIColor?) {
         self.init(frame: .zero)
         self.text = text
         self.textColor = color
@@ -20,8 +20,7 @@ extension UITextView {
 }
 
 extension UITextField {
-    convenience init(placeholder: String = "", font: UIFont? = nil, backgroundColor: UIColor
-        = .clear, borderStyle: UITextField.BorderStyle = .none) {
+    convenience init(placeholder: String = "", font: UIFont? = nil, backgroundColor: UIColor = .clear, borderStyle: UITextField.BorderStyle = .none) {
         self.init(frame: .zero)
         self.placeholder = placeholder
         self.backgroundColor = backgroundColor

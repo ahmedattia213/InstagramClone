@@ -13,13 +13,13 @@ class BaseCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupViews() {
-        
+
     }
 }
 
@@ -28,13 +28,12 @@ class BaseReusableView: UICollectionReusableView {
         super.init(frame: frame)
         setupViews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setupViews() {
-        
+
     }
 }
-

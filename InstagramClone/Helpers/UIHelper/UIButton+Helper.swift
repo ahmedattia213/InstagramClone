@@ -9,7 +9,8 @@
 import UIKit
 
 extension UIButton {
-    static public func systemButton(size: Int? = nil, title: String? = nil, image: UIImage? = nil, titleColor: UIColor? = .white, backgroundColor: UIColor = .clear, font: UIFont? = nil, target: Any? = nil, selector: Selector? = nil) -> UIButton {
+    static public func systemButton(size: Int? = nil, title: String? = nil, image: UIImage? = nil, titleColor: UIColor? = .white,
+                                    backgroundColor: UIColor = .clear, font: UIFont? = nil, target: Any? = nil, selector: Selector? = nil) -> UIButton {
         let button = UIButton(type: .system)
         if let size = size {
             button.frame = CGRect(x: 0, y: 0, width: size, height: size)

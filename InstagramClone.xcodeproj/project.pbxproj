@@ -29,8 +29,10 @@
 		C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */; };
 		C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */; };
 		C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */; };
+		C5A453CE22F55B330014F91F /* PhotoSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */; };
 		C5AAFA3722F125180018C012 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAFA3622F125180018C012 /* LoginController.swift */; };
 		C5AAFA3A22F143BB0018C012 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAFA3922F143BB0018C012 /* Validations.swift */; };
+		C5E3815522F590C20093D2F3 /* PhotoSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,8 +61,10 @@
 		C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cells+Helper.swift"; sourceTree = "<group>"; };
+		C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorController.swift; sourceTree = "<group>"; };
 		C5AAFA3622F125180018C012 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C5AAFA3922F143BB0018C012 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
+		C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorCell.swift; sourceTree = "<group>"; };
 		ED2C5178FE4642BC9A98A19B /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -114,11 +118,11 @@
 		C50C9D0622ED12A700A22A5D /* InstagramClone */ = {
 			isa = PBXGroup;
 			children = (
-				C5AAFA3822F143A70018C012 /* Helpers */,
-				C5AAFA3522F124FA0018C012 /* Login */,
+				C5A453D022F576AB0014F91F /* Authorization */,
 				C50C9D3922F0059100A22A5D /* UserProfile */,
+				C5A453CC22F55B1F0014F91F /* UploadMedia */,
+				C5AAFA3822F143A70018C012 /* Helpers */,
 				C50C9D0722ED12A700A22A5D /* AppDelegate.swift */,
-				C50C9D0922ED12A700A22A5D /* SignUpController.swift */,
 				C50C9D3522EFD9AD00A22A5D /* MainTabBarController.swift */,
 				C50C9D0B22ED12A700A22A5D /* Main.storyboard */,
 				C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */,
@@ -165,19 +169,29 @@
 			path = UserProfile;
 			sourceTree = "<group>";
 		};
-		C5AAFA3522F124FA0018C012 /* Login */ = {
+		C5A453CC22F55B1F0014F91F /* UploadMedia */ = {
 			isa = PBXGroup;
 			children = (
-				C5AAFA3622F125180018C012 /* LoginController.swift */,
+				C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */,
+				C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */,
 			);
-			path = Login;
+			path = UploadMedia;
+			sourceTree = "<group>";
+		};
+		C5A453D022F576AB0014F91F /* Authorization */ = {
+			isa = PBXGroup;
+			children = (
+				C50C9D0922ED12A700A22A5D /* SignUpController.swift */,
+				C5AAFA3622F125180018C012 /* LoginController.swift */,
+				C5AAFA3922F143BB0018C012 /* Validations.swift */,
+			);
+			path = Authorization;
 			sourceTree = "<group>";
 		};
 		C5AAFA3822F143A70018C012 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				C50C9D1922ED13AD00A22A5D /* UIHelper */,
-				C5AAFA3922F143BB0018C012 /* Validations.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -194,6 +208,7 @@
 				C50C9D0122ED12A700A22A5D /* Frameworks */,
 				C50C9D0222ED12A700A22A5D /* Resources */,
 				7DF65B1988F63C0D0E52140D /* [CP] Embed Pods Frameworks */,
+				C5E3815622F5A5EF0093D2F3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -294,6 +309,23 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-InstagramClone/Pods-InstagramClone-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C5E3815622F5A5EF0093D2F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -311,6 +343,7 @@
 				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
 				C50C9D3422EFAD0400A22A5D /* ImagePickerHelper.swift in Sources */,
 				C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */,
+				C5E3815522F590C20093D2F3 /* PhotoSelectorCell.swift in Sources */,
 				C50C9D2622ED1F9100A22A5D /* CALayer+Helper.swift in Sources */,
 				C50C9D0A22ED12A700A22A5D /* SignUpController.swift in Sources */,
 				C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */,
@@ -320,6 +353,7 @@
 				C50C9D0822ED12A700A22A5D /* AppDelegate.swift in Sources */,
 				C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */,
 				C50C9D2722ED1F9100A22A5D /* UIColor+Helper.swift in Sources */,
+				C5A453CE22F55B330014F91F /* PhotoSelectorController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIStackView {
-    convenience init(axis: NSLayoutConstraint.Axis? = NSLayoutConstraint.Axis.horizontal , alignment: Alignment? = .fill, distribution: Distribution? = .fill, spacing: CGFloat? = 0, arrangedSubviews: [UIView]) {
+    convenience init(axis: NSLayoutConstraint.Axis? = NSLayoutConstraint.Axis.horizontal, alignment: Alignment? = .fill, distribution: Distribution? = .fill, spacing: CGFloat? = 0, arrangedSubviews: [UIView]) {
         self.init(arrangedSubviews: arrangedSubviews)
         if let axis = axis {
             self.axis = axis
@@ -24,7 +24,7 @@ extension UIStackView {
             self.spacing = spacing
         }
     }
-    
+
     func addArrangedSubviews(_ views: UIView...) {
         views.forEach { addArrangedSubview($0) }
     }
