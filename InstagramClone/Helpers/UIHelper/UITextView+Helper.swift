@@ -9,13 +9,13 @@
 import UIKit
 
 extension UITextView {
-    convenience init(text: String?, font: UIFont?, color: UIColor?) {
+    convenience init(text: String?, font: UIFont?, color: UIColor?, isEditable: Bool = true) {
         self.init(frame: .zero)
         self.text = text
         self.textColor = color
         self.font = font
         self.backgroundColor = .clear
-        self.isEditable = false
+        self.isEditable = isEditable
     }
 }
 
