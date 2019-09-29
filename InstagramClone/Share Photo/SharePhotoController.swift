@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
 class SharePhotoController: UIViewController, UITextViewDelegate {
 
     let containerView = UIView()
+    var selectedImage: UIImage? {
+        didSet {
+            self.imageShared.image = selectedImage!
+        }
+    }
     lazy var imageShared: UIImageView = {
         let image = UIImageView(image: nil, contentMode: .scaleAspectFit, cornerRadius: 2, userInteraction: true)
         image.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(performZoomInForStartingImageView)))
@@ -18,7 +24,7 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
     }()
 
     lazy var captionTextView: UITextView = {
-        let textView = UITextView(text: "Write a caption...", font: .systemFont(ofSize: 14), color: .lightGray)
+        let textView = UITextView(text: .captionPlaceholder, font: .systemFont(ofSize: 14), color: .lightGray)
         textView.delegate = self
         return textView
     }()
@@ -34,12 +40,14 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
         return view
     }()
 
+    lazy var shareButton = UIButton.systemButton(title: "share", titleColor: .blue, font: .systemFont(ofSize: 17), target: self, selector: #selector(handleShare))
+
     //zoomIn Functionality variables
     var startingImageView: UIImageView = UIImageView(image: nil, contentMode: .scaleAspectFit, cornerRadius: 2, userInteraction: true)
     var startingFrame = CGRect()
     var zoomedImageBackground = UIView()
     let zoomingImageView = UIImageView(image: nil, contentMode: .scaleAspectFit, userInteraction: true)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -51,7 +59,6 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
         let top = view.safeAreaLayoutGuide.topAnchor
         containerView.addSubviews(imageShared, captionTextView)
         view.addSubviews(navBarSeparator, containerView, containerSeparator)
-
         navBarSeparator.anchor(top, left: view.leftAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 0.75)
         containerView.anchor(navBarSeparator.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 100)
         imageShared.anchor(left: containerView.leftAnchor, leftConstant: 15, widthConstant: 75, heightConstant: 75, centerYInSuperView: true)
@@ -60,11 +67,13 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
 
         containerSeparator.anchor(containerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, heightConstant: 0.5)
     }
+
     private func setupNavBar() {
         navigationItem.title = "New Post"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(handleBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: UILabel(text: "share", font: .systemFont(ofSize: 17), color: .blue))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: shareButton)
     }
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -74,11 +83,51 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
     }
 
     @objc func handleShare() {
-        print("SHARE")
+        guard let image = selectedImage else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+        let fileName = UUID().uuidString
+        let postsRef = FirebaseHelper.userPostsStorage.child(fileName)
+        self.shareButton.isEnabled = false
+        postsRef.putData(imageData, metadata: nil) { (_, err) in
+            if err != nil {
+                self.shareButton.isEnabled = true
+                print("Failed to Upload Post ", err!)
+                return
+            }
+            postsRef.downloadURL(completion: { (imgUrl, err) in
+                if err != nil {
+                    self.shareButton.isEnabled = true
+                    print("Failed to Download Url for Post ", err!)
+                    return
+                }
+                guard let imgUrlString = imgUrl?.absoluteString else { return }
+                self.savePostToDatabase(imageUrl: imgUrlString)
+            })
+        }
+    }
+
+    private func savePostToDatabase(imageUrl: String) {
+        guard let postImage = selectedImage else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard var caption = captionTextView.text else { return }
+        if caption == .captionPlaceholder {
+            caption = ""
+        }
+        let values = ["postUrl": imageUrl, "caption": caption, "imageWidth": postImage.size.width, "imageHeight": postImage.size.height, "creationDate": Date().timeIntervalSince1970] as [String: Any]
+        let usersPostsRef = FirebaseHelper.userPostsDatabase.child(uid).childByAutoId()
+        usersPostsRef.updateChildValues(values) { (err, _) in
+            if err != nil {
+                self.shareButton.isEnabled = true
+                print("Failed to save Post to Database", err!)
+                return
+            }
+                print("Successfully Saved Post To Database")
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if  textView.text == "Write a caption..." && textView.textColor == .lightGray {
+        if  textView.text == .captionPlaceholder && textView.textColor == .lightGray {
             textView.text = ""
             textView.textColor = .black
             textView.font = UIFont.systemFont(ofSize: 14)
@@ -87,7 +136,6 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
     }
 
     @objc func performZoomInForStartingImageView() {
-        print(imageShared.frame)
         let navbarHeight = self.navigationController?.navigationBar.frame.size.height
         startingFrame = imageShared.frame
         startingFrame.origin.y += navbarHeight ?? 0
@@ -118,7 +166,7 @@ class SharePhotoController: UIViewController, UITextViewDelegate {
             UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 zoomingOutImageView.frame = self.startingFrame
                 self.zoomedImageBackground.alpha = 0
-            }) { (_) in
+            }) { _ in
                 self.startingImageView.isHidden = false
                 zoomingOutImageView.removeFromSuperview()
             }

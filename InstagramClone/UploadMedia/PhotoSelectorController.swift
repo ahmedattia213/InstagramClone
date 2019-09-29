@@ -132,7 +132,7 @@ class PhotoSelectorController: UICollectionViewController, UICollectionViewDeleg
     }
     @objc func handleNext() {
         let sharePhotoController = SharePhotoController()
-        sharePhotoController.imageShared.image = selectedImage
+        sharePhotoController.selectedImage = selectedImage
         navigationController?.pushViewController(sharePhotoController, animated: true)
     }
 }

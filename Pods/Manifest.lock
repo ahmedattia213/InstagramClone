@@ -69,6 +69,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.2.3):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.2)
+  - Kingfisher (5.7.1)
   - leveldb-library (1.20)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -82,10 +83,11 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - Kingfisher
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -100,6 +102,8 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - SwiftLint
+  trunk:
+    - Kingfisher
 
 SPEC CHECKSUMS:
   Firebase: dedc9e48ea3f3649ad5f6b982f8a0c73508a14b5
@@ -113,10 +117,11 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 183bd916af7f80deb67c01888368f1108d641832
   GoogleUtilities: d2b0e277a95962e09bb27f5cd42f5f0b6a506c7d
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: f27f8bba0e8c78f8528aebb34971e3e595d45277
+PODFILE CHECKSUM: e7b4c666ab61a5879535dd5d4bd0a9b6bb9113d7
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.0

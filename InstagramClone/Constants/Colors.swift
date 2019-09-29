@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 extension UIColor {
     //Signup Colors
@@ -21,9 +20,6 @@ extension UIColor {
     static let background = UIColor(hex: 0xf9f9f9)
 }
 
-class FirebaseHelper {
-    //Database
-    static let usersDatabase = Database.database().reference().child("users")
-    //Storage
-    static let profileImages = Storage.storage().reference().child("profile_images")
+extension String {
+    static let captionPlaceholder = "Write a caption..."
 }

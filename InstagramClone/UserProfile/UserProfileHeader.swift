@@ -12,7 +12,9 @@ class UserProfileHeader: BaseReusableView {
 
     var user: User? {
         didSet {
-            fetchUserProfileImage()
+            guard let urlString = user?.profileImageUrl else { return }
+            guard let profileImageUrl = URL(string: urlString) else { return }
+            self.profileImageView.kf.setImage(with: profileImageUrl)
             usernameLabel.text = user?.username
 
         }
@@ -25,13 +27,13 @@ class UserProfileHeader: BaseReusableView {
         return button
     }()
     let listButton: UIButton = {
-       let button = UIButton.systemButton(image: #imageLiteral(resourceName: "list"), target: self, selector: #selector(handleList))
+        let button = UIButton.systemButton(image: #imageLiteral(resourceName: "list"), target: self, selector: #selector(handleList))
         button.tintColor = UIColor(white: 0, alpha: 0.2)
         return button
     }()
 
     let bookmarkButton: UIButton = {
-       let button = UIButton.systemButton(image: #imageLiteral(resourceName: "ribbon"), target: self, selector: #selector(handleBookmark))
+        let button = UIButton.systemButton(image: #imageLiteral(resourceName: "ribbon"), target: self, selector: #selector(handleBookmark))
         button.tintColor = UIColor(white: 0, alpha: 0.2)
         return button
     }()
@@ -81,7 +83,6 @@ class UserProfileHeader: BaseReusableView {
         backgroundColor = .background
         addSubviews(profileImageView, bottomToolBarStackview, usernameLabel, userStatsStackView,
                     editProfileButton)
-
         setupProfileImageView()
         setupBottomToolBar()
         setupUsernameLabel()
@@ -114,30 +115,19 @@ class UserProfileHeader: BaseReusableView {
     }
 
     private func fetchUserProfileImage() {
-        guard let profileImageUrlString = user?.profileImageUrl else { return }
-        guard let profileImageUrl = URL(string: profileImageUrlString) else { return }
-        URLSession.shared.dataTask(with: profileImageUrl) { (data, _, err) in
-            if let err = err {
-                print("Failed to retrieve image from URL: ", err)
-                return
-            }
-            guard let data = data else { return }
-            let image = UIImage(data: data)
-            DispatchQueue.main.async {
-                self.profileImageView.image = image
-            }
-            }.resume()
+        guard let profileImageUrl = URL(string: user!.profileImageUrl) else { return }
+        self.profileImageView.kf.setImage(with: profileImageUrl)
     }
 
     @objc func handleGrid() {
-     print("1")
+        print("Grid button")
     }
-    @objc func handleList() {
-        print("2")
 
+    @objc func handleList() {
+        print("List button")
     }
     @objc func handleBookmark() {
-        print("3")
+        print("Bookmark button")
 
     }
 

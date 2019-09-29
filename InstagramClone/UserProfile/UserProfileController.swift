@@ -8,23 +8,52 @@
 
 import UIKit
 import Firebase
+import Kingfisher
 
 class UserProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    var posts = [Post]() {
+        didSet {
+
+        }
+    }
     var user: User? {
         didSet {
             self.navigationItem.title = self.user?.username
         }
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        observePosts()
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .white
         setupNavbar()
+        setupCollectionView()
         fetchUser()
-        collectionView.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: UserProfileHeader.reuseId)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "id")
         setupLogoutButton()
+        observePosts()
+    }
+
+    private func setupCollectionView() {
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .background
+        collectionView.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: UserProfileHeader.reuseId)
+        collectionView.register(UserProfilePhotoCell.self, forCellWithReuseIdentifier: UserProfilePhotoCell.reuseIdentifier)
+    }
+
+    private func observePosts() {
+        guard let uid = FirebaseHelper.currentUserUid else { return }
+        let postsRef = FirebaseHelper.userPostsDatabase.child(uid)
+        postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
+            guard let dict = snapshot.value as? [String: Any] else { return }
+            let newPost = Post(dictionary: dict)
+            self.posts.insert(newPost, at: 0)
+            self.collectionView.reloadData()
+        }) { (err) in
+            print("Failed to retreive latest post: ", err)
+        }
     }
 
     private func setupLogoutButton() {
@@ -68,11 +97,11 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return posts.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "id", for: indexPath)
-        cell.backgroundColor = .purple
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserProfilePhotoCell.reuseIdentifier, for: indexPath) as? UserProfilePhotoCell else { return UICollectionViewCell()}
+        cell.post = self.posts[indexPath.row]
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

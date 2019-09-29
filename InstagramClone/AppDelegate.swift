@@ -8,12 +8,30 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+
+    }
+
+    private func registerForPushNotifications(application: UIApplication) {
+        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { (granted, err) in
+            if let err = err {
+                print("Failed to request Authorization: ", err)
+            }
+            if granted {
+                print("Auth granted")
+            } else {
+                print("Auth denied")
+            }
+        }
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()

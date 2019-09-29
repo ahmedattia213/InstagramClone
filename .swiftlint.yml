@@ -1,1 +1,9 @@
+disabled_rules: # rule identifiers to exclude from running
+ - multiple_closures_with_trailing_closure
 line_length: 210
+
+included:
+  - InstagramClone
+
+excluded:
+  - Pods
