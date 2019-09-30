@@ -9,20 +9,18 @@
 import UIKit
 
 extension UIImageView {
-    convenience init(image: UIImage? = nil, contentMode: UIView.ContentMode? = .scaleAspectFill, cornerRadius: CGFloat? = 0, userInteraction: Bool? = false) {
+    convenience init(image: UIImage? = nil, contentMode: UIView.ContentMode? = .scaleAspectFill, tintColour: UIColor? = nil, cornerRadius: CGFloat? = 0, userInteraction: Bool? = false) {
         self.init(frame: .zero)
-        if let image = image {
-            self.image = image
-        }
-        if let contentMode = contentMode {
-            self.contentMode = contentMode
-        }
+        self.image = image
+        self.contentMode = contentMode ?? .scaleAspectFill
+        self.isUserInteractionEnabled  = userInteraction ?? false
         if let cornerRadius = cornerRadius {
             self.clipsToBounds = true
             self.layer.cornerRadius = cornerRadius
         }
-        if let userInteraction  = userInteraction {
-            self.isUserInteractionEnabled  = userInteraction
+        if let tintColour = tintColour {
+            self.image = self.image?.withRenderingMode(.alwaysTemplate)
+            self.tintColor = tintColour
         }
     }
 }

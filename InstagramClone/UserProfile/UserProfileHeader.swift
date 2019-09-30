@@ -100,9 +100,9 @@ class UserProfileHeader: BaseReusableView {
         separatorView.backgroundColor = .lightGray
         addSubview(separatorView)
 
-        bottomToolBarStackview.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, leftConstant: 0, bottomConstant: 0, rightConstant: 0, heightConstant: 50)
+        bottomToolBarStackview.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, heightConstant: 50)
 
-        separatorView.anchor( left: leftAnchor, bottom: bottomToolBarStackview.topAnchor, right: rightAnchor, leftConstant: 0, bottomConstant: 0, rightConstant: 0, heightConstant: 0.5)
+        separatorView.anchor( left: leftAnchor, bottom: bottomToolBarStackview.topAnchor, right: rightAnchor, heightConstant: 0.5)
     }
     private func setupUsernameLabel() {
         usernameLabel.anchor(profileImageView.bottomAnchor, left: leftAnchor, topConstant: 15, leftConstant: 15)
