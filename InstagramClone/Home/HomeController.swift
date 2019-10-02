@@ -9,10 +9,13 @@
 import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+
+    var posts = [Post]()
+
     override func viewDidLoad() {
         setupNavBar()
         setupCollectionView()
-        collectionView.backgroundColor = .white
+        observePosts()
     }
 
     private func setupNavBar() {
@@ -22,17 +25,33 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.titleView = imageView
     }
 
+    private func observePosts() {
+        guard let uid = FirebaseHelper.currentUserUid else { return }
+        let postsRef = FirebaseHelper.userPostsDatabase.child(uid)
+        postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
+            guard let dict = snapshot.value as? [String: Any] else { return }
+            let newPost = Post(dictionary: dict)
+            self.posts.insert(newPost, at: 0)
+            self.collectionView.reloadData()
+        }) { (err) in
+            print("Failed to retreive latest post: ", err)
+        }
+    }
+
     private func setupCollectionView() {
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = .white
         collectionView.register(HomePostCell.self, forCellWithReuseIdentifier: HomePostCell.reuseIdentifier)
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePostCell.reuseIdentifier, for: indexPath) as? HomePostCell else { return UICollectionViewCell() }
+        cell.post = posts[indexPath.row]
         return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return posts.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -43,3 +62,5 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         return 7
     }
 }
+
+

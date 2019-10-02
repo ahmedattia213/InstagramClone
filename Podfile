@@ -12,4 +12,6 @@ pod 'Firebase/Database'
 pod 'Firebase/Storage'
 pod 'SwiftLint'
 pod 'Kingfisher'
+pod 'SVProgressHUD'
+
 end

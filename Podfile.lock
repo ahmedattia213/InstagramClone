@@ -76,6 +76,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SVProgressHUD (2.2.5)
   - SwiftLint (0.34.0)
 
 DEPENDENCIES:
@@ -84,6 +85,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - Kingfisher
+  - SVProgressHUD
   - SwiftLint
 
 SPEC REPOS:
@@ -104,6 +106,7 @@ SPEC REPOS:
     - SwiftLint
   trunk:
     - Kingfisher
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   Firebase: dedc9e48ea3f3649ad5f6b982f8a0c73508a14b5
@@ -120,8 +123,9 @@ SPEC CHECKSUMS:
   Kingfisher: 176d377ad339113c99ad4980cbae687f807e20fe
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: e7b4c666ab61a5879535dd5d4bd0a9b6bb9113d7
+PODFILE CHECKSUM: 0221c50fbfe9293b5072a6275d691ecf49eeb6ee
 
 COCOAPODS: 1.8.0

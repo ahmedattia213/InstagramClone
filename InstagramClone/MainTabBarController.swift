@@ -24,6 +24,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     func setupViewControllers() {
         let layout = UICollectionViewFlowLayout()
+        let layout2 = UICollectionViewFlowLayout()
 
         let homeController = HomeController(collectionViewLayout: layout)
         let homeNavController = templateNavControllerForTabbar(viewController: homeController, unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"))
@@ -37,7 +38,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let likesController = UIViewController()
         let likesNavController = templateNavControllerForTabbar(viewController: likesController, unselectedImage: #imageLiteral(resourceName: "like_unselected"), selectedImage: #imageLiteral(resourceName: "like_selected"))
 
-        let userProfileController = UserProfileController(collectionViewLayout: layout)
+        let userProfileController = UserProfileController(collectionViewLayout: layout2)
         let userProfileNavController =  templateNavControllerForTabbar(viewController: userProfileController, unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"))
 
         tabBar.tintColor = .black
