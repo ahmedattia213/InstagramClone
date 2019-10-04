@@ -10,30 +10,37 @@ import UIKit
 import SVProgressHUD
 
 class HomePostCell: BaseCollectionViewCell {
-
+    
+    static let reuseIdentifier = "HomePostCellReuseId"
     var post: Post? {
         didSet {
-            setupCellForUser()
-            setupCellForPost(post!)
+            setupCellForUser(post!)
         }
     }
 
     private func setupCellForPost(_ post: Post) {
-        guard let postUrl = URL(string: post.postUrl ?? "") else { return }
-        postImageView.kf.setImage(with: postUrl)
+        
+     
     }
 
-    private func setupCellForUser() {
+    private func setupCellForUser(_ post: Post) {
+        guard let postUrl = URL(string: post.postUrl ?? "") else { return }
+         postImageView.kf.setImage(with: postUrl)
         guard let uid = FirebaseHelper.currentUserUid else { return }
         FirebaseHelper.usersDatabase.child(uid).observe(.value) { (snapshot) in
             guard let dict = snapshot.value as? [String: Any] else { return }
-            self.postUsernameLabel.text = dict["username"] as? String ?? ""
             guard let profImageUrl = URL(string: dict["profileImageUrl"] as? String ?? "") else { return }
             self.postProfileImageView.kf.setImage(with: profImageUrl)
+            DispatchQueue.main.async {
+                let usernameText = dict["username"] as? String ?? ""
+                self.postUsernameLabel.text = usernameText
+                let captionText = NSMutableAttributedString(string: "\(usernameText) ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+                captionText.append(NSAttributedString(string: post.caption ?? "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.black]))
+                self.captionButton.setAttributedTitle(captionText, for: .normal)
+            }
         }
     }
 
-    static let reuseIdentifier = "HomePostCellReuseId"
     let postProfileImageView: UIImageView = UIImageView(image: nil, contentMode: .scaleAspectFill)
     let postUsernameLabel: UILabel = UILabel(text: "7amada", font: UIFont.boldSystemFont(ofSize: 13), color: .black)
     let settingsImageView: UIImageView = UIImageView(image: #imageLiteral(resourceName: "more"), contentMode: .scaleAspectFit, tintColour: nil, userInteraction: true)
@@ -68,6 +75,13 @@ class HomePostCell: BaseCollectionViewCell {
 
     lazy var likeCommentDmStackView = UIStackView(axis: .horizontal, alignment: .fill, distribution: .fillEqually, spacing: 20, arrangedSubviews: [likeImageView, commentImageView, dmImageView])
 
+    let likersLabel = UILabel(text: "7amada", font: UIFont.boldSystemFont(ofSize: 13), color: .black)
+
+    let captionButton = UIButton.systemButton(titleColor: .black, font: UIFont.boldSystemFont(ofSize: 13), target: self, selector: #selector(handleCaption))
+    
+    @objc func handleCaption() {
+        
+    }
     override func setupViews() {
         //removeOldViews()
         super.setupViews()
@@ -78,8 +92,10 @@ class HomePostCell: BaseCollectionViewCell {
         let gest4 = UITapGestureRecognizer(target: self, action: #selector(tozfeky))
 
         setupProfileDetailsContainer()
-        setupLikeCommentDmContainer()
         setupPostImageView()
+        setupLikeCommentDmContainer()
+        setupLikersContainer()
+        setupCaptionContainer()
         self.backgroundColor = .white
         settingsImageView.addGestureRecognizer(gest)
         likeImageView.addGestureRecognizer(gest1)
@@ -101,13 +117,27 @@ class HomePostCell: BaseCollectionViewCell {
 
     private func setupLikeCommentDmContainer() {
         self.addSubview(likeCommentDmContainer)
-        likeCommentDmContainer.anchor(left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, heightConstant: 50)
+        likeCommentDmContainer.anchor( postImageView.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 10, heightConstant: 50)
     }
 
     private func setupPostImageView() {
         self.addSubview(postImageView)
-        postImageView.anchor(profileDetailsContainer.bottomAnchor, left: self.leftAnchor, bottom: likeCommentDmContainer.topAnchor, right: self.rightAnchor)
+        postImageView.anchor(profileDetailsContainer.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, heightConstant: 400)
         postImageView.backgroundColor = .lightGray
+    }
+    
+    private func setupLikersContainer() {
+        self.addSubview(likersLabel)
+        likersLabel.anchor(likeCommentDmContainer.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 10,  rightConstant: 10, heightConstant: 25)
+        likersLabel.text = "75 Likes"
+    }
+    
+    private func setupCaptionContainer() {
+        self.addSubview(captionButton)
+       captionButton.anchor(likersLabel.bottomAnchor, left: self.leftAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 10,  rightConstant: 10, heightConstant: 20)
+
+        captionButton.contentHorizontalAlignment = .left
+        captionButton.setTitleColor(.black, for: .normal)
     }
     
     @objc func tozfeky() {
