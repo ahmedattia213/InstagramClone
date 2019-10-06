@@ -22,10 +22,6 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             self.navigationItem.title = self.user?.username
         }
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        observePosts()
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +41,9 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     private func observePosts() {
         guard let uid = FirebaseHelper.currentUserUid else { return }
-        let postsRef = FirebaseHelper.userPostsDatabase.child(uid)
-        postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
-            guard let dict = snapshot.value as? [String: Any] else { return }
-            let newPost = Post(dictionary: dict)
-            self.posts.insert(newPost, at: 0)
-            self.collectionView.reloadData()
-        }) { (err) in
-            print("Failed to retreive latest post: ", err)
+        FirebaseHelper.observePostsWithUid(uid) { (newPost) in
+             self.posts.insert(newPost, at: 0)
+             self.collectionView.reloadData()
         }
     }
 
@@ -68,12 +59,9 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     private func fetchUser() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
-        FirebaseHelper.usersDatabase.child(currentUserUid).observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let snapshotValue = snapshot.value as? [String: Any] else { return }
-            self.user = User(dictionary: snapshotValue)
+        FirebaseHelper.fetchUserWithUid(currentUserUid) { (user) in
+            self.user = user
             self.collectionView.reloadData()
-        }) { (err) in
-            print("Failed to fetch user: ", err)
         }
     }
 
@@ -125,15 +113,5 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 250)
-    }
-}
-
-struct User {
-    let username: String
-    let profileImageUrl: String
-
-    init(dictionary: [String: Any]) {
-        self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
     }
 }

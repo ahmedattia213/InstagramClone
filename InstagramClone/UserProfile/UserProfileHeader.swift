@@ -114,11 +114,6 @@ class UserProfileHeader: BaseReusableView {
         editProfileButton.anchor(usernameLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, topConstant: 25, leftConstant: 15, rightConstant: 15, heightConstant: 30)
     }
 
-    private func fetchUserProfileImage() {
-        guard let profileImageUrl = URL(string: user!.profileImageUrl) else { return }
-        self.profileImageView.kf.setImage(with: profileImageUrl)
-    }
-
     @objc func handleGrid() {
         print("Grid button")
     }

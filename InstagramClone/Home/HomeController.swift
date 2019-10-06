@@ -11,8 +11,10 @@ import UIKit
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     var posts = [Post]()
+    var user: User?
 
     override func viewDidLoad() {
+        fetchCurrentUser()
         setupNavBar()
         setupCollectionView()
         observePosts()
@@ -25,16 +27,18 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.titleView = imageView
     }
 
-    private func observePosts() {
+     private func observePosts() {
+          guard let uid = FirebaseHelper.currentUserUid else { return }
+          FirebaseHelper.observePostsWithUid(uid) { (newPost) in
+               self.posts.insert(newPost, at: 0)
+               self.collectionView.reloadData()
+          }
+      }
+
+    private func fetchCurrentUser() {
         guard let uid = FirebaseHelper.currentUserUid else { return }
-        let postsRef = FirebaseHelper.userPostsDatabase.child(uid)
-        postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
-            guard let dict = snapshot.value as? [String: Any] else { return }
-            let newPost = Post(dictionary: dict)
-            self.posts.insert(newPost, at: 0)
-            self.collectionView.reloadData()
-        }) { (err) in
-            print("Failed to retreive latest post: ", err)
+        FirebaseHelper.fetchUserWithUid(uid) { (user) in
+            self.user = user
         }
     }
 
@@ -46,6 +50,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePostCell.reuseIdentifier, for: indexPath) as? HomePostCell else { return UICollectionViewCell() }
+        if let user = self.user {
+            cell.user = user
+        }
         cell.post = posts[indexPath.row]
         return cell
     }
@@ -55,12 +62,10 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 565)
+        return CGSize(width: view.frame.width, height: 585)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
 }
-
-
