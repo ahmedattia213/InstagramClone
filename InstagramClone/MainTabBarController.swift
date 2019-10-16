@@ -23,23 +23,15 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
 
     func setupViewControllers() {
-        let layout = UICollectionViewFlowLayout()
-        let layout2 = UICollectionViewFlowLayout()
+        let homeNavController = templateNavControllerForTabbar(viewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"))
 
-        let homeController = HomeController(collectionViewLayout: layout)
-        let homeNavController = templateNavControllerForTabbar(viewController: homeController, unselectedImage: #imageLiteral(resourceName: "home_unselected"), selectedImage: #imageLiteral(resourceName: "home_selected"))
+        let searchNavController = templateNavControllerForTabbar(viewController: UserSearchController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"))
 
-        let searchController = UIViewController()
-        let searchNavController = templateNavControllerForTabbar(viewController: searchController, unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"))
+        let createPostNavController = templateNavControllerForTabbar(viewController: UIViewController(), unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"))
 
-        let createPostController = UIViewController()
-        let createPostNavController = templateNavControllerForTabbar(viewController: createPostController, unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"))
+        let likesNavController = templateNavControllerForTabbar(viewController: UIViewController(), unselectedImage: #imageLiteral(resourceName: "like_unselected"), selectedImage: #imageLiteral(resourceName: "like_selected"))
 
-        let likesController = UIViewController()
-        let likesNavController = templateNavControllerForTabbar(viewController: likesController, unselectedImage: #imageLiteral(resourceName: "like_unselected"), selectedImage: #imageLiteral(resourceName: "like_selected"))
-
-        let userProfileController = UserProfileController(collectionViewLayout: layout2)
-        let userProfileNavController =  templateNavControllerForTabbar(viewController: userProfileController, unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"))
+        let userProfileNavController =  templateNavControllerForTabbar(viewController: UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedImage: #imageLiteral(resourceName: "profile_unselected"), selectedImage: #imageLiteral(resourceName: "profile_selected"))
 
         tabBar.tintColor = .black
         viewControllers = [homeNavController, searchNavController, createPostNavController, likesNavController, userProfileNavController]

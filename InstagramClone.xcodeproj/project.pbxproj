@@ -40,6 +40,8 @@
 		C5BF76192340F06B00D892FC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BF76182340F06B00D892FC /* Post.swift */; };
 		C5BF761B2340F4EF00D892FC /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BF761A2340F4EF00D892FC /* UserProfilePhotoCell.swift */; };
 		C5E3815522F590C20093D2F3 /* PhotoSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */; };
+		C5FCECFA234ADC9300BAD054 /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FCECF9234ADC9300BAD054 /* UserSearchController.swift */; };
+		C5FCECFC234AE1AC00BAD054 /* UISearchbar+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FCECFB234AE1AC00BAD054 /* UISearchbar+Helper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		C5BF76182340F06B00D892FC /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C5BF761A2340F4EF00D892FC /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
 		C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorCell.swift; sourceTree = "<group>"; };
+		C5FCECF9234ADC9300BAD054 /* UserSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
+		C5FCECFB234AE1AC00BAD054 /* UISearchbar+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchbar+Helper.swift"; sourceTree = "<group>"; };
 		ED2C5178FE4642BC9A98A19B /* Pods_InstagramClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -132,6 +136,7 @@
 		C50C9D0622ED12A700A22A5D /* InstagramClone */ = {
 			isa = PBXGroup;
 			children = (
+				C5FCECF8234ADC6A00BAD054 /* Search */,
 				C58C7E392341634E00BF4265 /* Home */,
 				C5BF76172340F05F00D892FC /* Models */,
 				C5A87FB72311D4FE0087A3E4 /* Share Photo */,
@@ -164,6 +169,7 @@
 				C50C9D1D22ED1F9100A22A5D /* UIView+Anchors.swift */,
 				C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */,
 				C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */,
+				C5FCECFB234AE1AC00BAD054 /* UISearchbar+Helper.swift */,
 			);
 			path = UIHelper;
 			sourceTree = "<group>";
@@ -239,6 +245,14 @@
 				C503CE832346D6FC00D3C7D7 /* User.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C5FCECF8234ADC6A00BAD054 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C5FCECF9234ADC9300BAD054 /* UserSearchController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -374,11 +388,13 @@
 				C5A87FB92311D5160087A3E4 /* SharePhotoController.swift in Sources */,
 				C50C9D2422ED1F9100A22A5D /* UIStackView+Helper.swift in Sources */,
 				C50C9D2C22ED553500A22A5D /* Colors.swift in Sources */,
+				C5FCECFA234ADC9300BAD054 /* UserSearchController.swift in Sources */,
 				C5BF76192340F06B00D892FC /* Post.swift in Sources */,
 				C50C9D2522ED1F9100A22A5D /* UIView+Anchors.swift in Sources */,
 				C50C9D2222ED1F9100A22A5D /* UILabel+Helper.swift in Sources */,
 				C58C7E3B2341636B00BF4265 /* HomeController.swift in Sources */,
 				C5AAFA3A22F143BB0018C012 /* Validations.swift in Sources */,
+				C5FCECFC234AE1AC00BAD054 /* UISearchbar+Helper.swift in Sources */,
 				C50C9D2E22ED563A00A22A5D /* Fonts.swift in Sources */,
 				C50C9D2822ED1F9100A22A5D /* UITextView+Helper.swift in Sources */,
 				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
