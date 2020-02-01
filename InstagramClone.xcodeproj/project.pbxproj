@@ -30,6 +30,8 @@
 		C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */; };
 		C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */; };
 		C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */; };
+		C50DA47C23D605D7003CB483 /* ViewController+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */; };
+		C5560E8F23DE8DD8007D9F5F /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5560E8E23DE8DD8007D9F5F /* SearchCell.swift */; };
 		C56AB2F5232FC8F70091D1A8 /* Firebase+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56AB2F4232FC8F70091D1A8 /* Firebase+Helper.swift */; };
 		C58C7E3B2341636B00BF4265 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58C7E3A2341636B00BF4265 /* HomeController.swift */; };
 		C58C7E3D234171BD00BF4265 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58C7E3C234171BD00BF4265 /* HomePostCell.swift */; };
@@ -71,6 +73,8 @@
 		C50C9D3722EFDB7500A22A5D /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cells+Helper.swift"; sourceTree = "<group>"; };
+		C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Helper.swift"; sourceTree = "<group>"; };
+		C5560E8E23DE8DD8007D9F5F /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C56AB2F4232FC8F70091D1A8 /* Firebase+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firebase+Helper.swift"; sourceTree = "<group>"; };
 		C58C7E3A2341636B00BF4265 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C58C7E3C234171BD00BF4265 /* HomePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				C50C9D3322EFAD0400A22A5D /* ImagePickerHelper.swift */,
 				C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */,
 				C5FCECFB234AE1AC00BAD054 /* UISearchbar+Helper.swift */,
+				C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */,
 			);
 			path = UIHelper;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				C5FCECF9234ADC9300BAD054 /* UserSearchController.swift */,
+				C5560E8E23DE8DD8007D9F5F /* SearchCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -386,6 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5A87FB92311D5160087A3E4 /* SharePhotoController.swift in Sources */,
+				C5560E8F23DE8DD8007D9F5F /* SearchCell.swift in Sources */,
 				C50C9D2422ED1F9100A22A5D /* UIStackView+Helper.swift in Sources */,
 				C50C9D2C22ED553500A22A5D /* Colors.swift in Sources */,
 				C5FCECFA234ADC9300BAD054 /* UserSearchController.swift in Sources */,
@@ -403,6 +410,7 @@
 				C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */,
 				C5E3815522F590C20093D2F3 /* PhotoSelectorCell.swift in Sources */,
 				C50C9D2622ED1F9100A22A5D /* CALayer+Helper.swift in Sources */,
+				C50DA47C23D605D7003CB483 /* ViewController+Helper.swift in Sources */,
 				C50C9D0A22ED12A700A22A5D /* SignUpController.swift in Sources */,
 				C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */,
 				C50C9D3622EFD9AD00A22A5D /* MainTabBarController.swift in Sources */,
@@ -562,7 +570,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 34VS49Z26P;
+				DEVELOPMENT_TEAM = H2XQP39QVX;
 				INFOPLIST_FILE = InstagramClone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,7 +589,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 34VS49Z26P;
+				DEVELOPMENT_TEAM = H2XQP39QVX;
 				INFOPLIST_FILE = InstagramClone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

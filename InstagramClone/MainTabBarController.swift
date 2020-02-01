@@ -15,6 +15,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         if Auth.auth().currentUser == nil {
             DispatchQueue.main.async {
                 let navController = UINavigationController(rootViewController: LoginController())
+                navController.modalPresentationStyle = .fullScreen
                 self.present(navController, animated: true, completion: nil)
             }
             return

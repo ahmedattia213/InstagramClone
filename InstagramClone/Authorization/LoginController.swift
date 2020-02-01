@@ -46,6 +46,7 @@ class LoginController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .white
         navigationController?.isNavigationBarHidden = true
         view.addSubviews(signUpButton, logoContainerView, signInStackView)
@@ -55,10 +56,11 @@ class LoginController: UIViewController {
     }
 
     func setupSignUpButton() {
+        let bottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         let signUpButtonText = NSMutableAttributedString(string: "Don't have an account?", attributes: nil)
         signUpButtonText.append(NSAttributedString(string: " Sign Up", attributes: [NSAttributedString.Key.foregroundColor: UIColor.signupButton]))
         signUpButton.setAttributedTitle(signUpButtonText, for: .normal)
-        signUpButton.anchor(bottom: view.bottomAnchor, bottomConstant: 6, centerXInSuperView: true)
+        signUpButton.anchor(bottom: bottomAnchor, bottomConstant: 5, centerXInSuperView: true)
     }
 
     func setupLogoContainerView() {

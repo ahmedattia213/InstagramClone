@@ -45,6 +45,7 @@ class SignUpController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .white
         setupUI()
     }
@@ -54,11 +55,12 @@ class SignUpController: UIViewController {
     }
 
     private func setupUI() {
+        let bottomAnchor = view.safeAreaLayoutGuide.bottomAnchor
         view.addSubviews(plusPhotoButton, textfieldStackView, signInButton)
         plusPhotoButton.anchor(view.topAnchor, topConstant: 40, widthConstant: 140, heightConstant: 140, centerXInSuperView: true)
         textfieldStackView.anchor(plusPhotoButton.bottomAnchor, topConstant: 20, heightConstant: 190, centerXInSuperView: true)
         textfieldStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
-        signInButton.anchor(bottom: view.bottomAnchor, bottomConstant: 6, centerXInSuperView: true)
+        signInButton.anchor(bottom: bottomAnchor, bottomConstant: 5 , centerXInSuperView: true)
         setupSignInButtonText()
     }
 
@@ -69,7 +71,6 @@ class SignUpController: UIViewController {
     }
 
     @objc func handlePhotoButton() {
-        print("hello")
         imagePicker = ImagePickerHelper(presentedViewController: self, delegate: self)
         imagePicker.present(from: self.view)
     }

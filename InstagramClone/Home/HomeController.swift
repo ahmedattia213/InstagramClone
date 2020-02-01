@@ -39,6 +39,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         guard let uid = FirebaseHelper.currentUserUid else { return }
         FirebaseHelper.fetchUserWithUid(uid) { (user) in
             self.user = user
+            self.collectionView.reloadData()
         }
     }
 

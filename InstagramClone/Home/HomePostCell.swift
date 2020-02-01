@@ -65,7 +65,7 @@ class HomePostCell: BaseCollectionViewCell {
     let dateLabel = UILabel(text: "1 week ago", font: UIFont.systemFont(ofSize: 13), color: .lightGray)
     
     @objc func handleCaption() {
-
+        print("HEY THERE")
     }
     
   
@@ -124,12 +124,12 @@ class HomePostCell: BaseCollectionViewCell {
     }
 
     @objc func tozfeky() {
-        print("hello")
         SVProgressHUD.showSuccess(withStatus: "Toz feeky")
         SVProgressHUD.dismiss(withDelay: 0.5)
     }
 
     private func setupCellWithUser(_ user: User) {
+        print(user)
         self.postUsernameLabel.text = user.username
         guard let profImageUrl = URL(string: user.profileImageUrl ?? "") else { return }
         self.postProfileImageView.kf.setImage(with: profImageUrl)
