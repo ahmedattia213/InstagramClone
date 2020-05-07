@@ -18,6 +18,13 @@ extension UIColor {
     static let logoBackground = UIColor(hex: 0x0078af)
     //background
     static let background = UIColor(hex: 0xf9f9f9)
+    
+    static let followButton = UIColor(hex: 0x2d80ec)
+    static let followText = UIColor(hex: 0xFFFFFF)
+    
+    static let unfollowButton = UIColor(hex: 0xFFFFFF)
+    static let unfollowText = UIColor(hex: 0x000000)
+    static let unfollowButtonBorder = UIColor(hex: 0xd4d4d4)
 }
 
 extension String {

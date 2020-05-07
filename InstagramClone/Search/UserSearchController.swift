@@ -31,6 +31,11 @@ UISearchBarDelegate {
         fetchUsers()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchBar.isHidden = false
+    }
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         showCancelButton()
     }
@@ -49,8 +54,11 @@ UISearchBarDelegate {
         let ref = FirebaseHelper.usersDatabase
         ref.observe(.childAdded, with: { (snapshot) in
             guard let dicts = snapshot.value as? [String: Any] else { return }
-                let user = User(dictionary: dicts)
-                self.users.append(user)
+            let user = User(uid: snapshot.key, dictionary: dicts)
+            if Auth.auth().currentUser?.uid == user.uid {
+                return
+            }
+            self.users.append(user)
             self.users = self.users.sorted(by: { $0.username!.lowercased() < $1.username!.lowercased()})
             self.filteredUsers = self.users
             self.collectionView.reloadData()
@@ -58,15 +66,16 @@ UISearchBarDelegate {
             print("Failed to fetch in search ", err)
         }
     }
-
+    
     private func setupCollectionView() {
         collectionView.contentInset = UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = .white
         collectionView.register(SearchCell.self, forCellWithReuseIdentifier: SearchCell.reuseIdentifier)
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.keyboardDismissMode = .onDrag
     }
-
+    
     lazy var cancelButton = UIButton.systemButton( title: "Cancel", titleColor: .black, backgroundColor: .clear, font: UIFont.systemFont(ofSize: 15), target: self, selector: #selector(handleEndFiltering))
 
     @objc func handleEndFiltering() {
@@ -77,7 +86,7 @@ UISearchBarDelegate {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         handleEndFiltering()
     }
-    
+
     private func setupNavBar() {
         navigationController?.navigationBar.barTintColor = .background
         navigationController?.navigationBar.addSubview(searchBar)
@@ -111,6 +120,14 @@ UISearchBarDelegate {
         return cell
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let user = filteredUsers[indexPath.row]
+        searchBar.isHidden = true
+        searchBar.resignFirstResponder()
+        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        userProfileController.user = filteredUsers[indexPath.row]
+        navigationController?.pushViewController(userProfileController, animated: true)
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 70)
     }

@@ -9,26 +9,26 @@
 import UIKit
 
 extension UIView {
-    
+
     convenience init(color: UIColor) {
         self.init(frame: .zero)
         self.backgroundColor = color
     }
-    
+
     func roundCircular(width: CGFloat) {
         self.clipsToBounds = true
         self.layer.cornerRadius = width/2
     }
-    
+
     func roundSmoothEdges(height: CGFloat) {
         self.clipsToBounds = true
         self.layer.cornerRadius = height/2
     }
-    
+
     func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }
-    
+
     public func fillSuperview() {
         translatesAutoresizingMaskIntoConstraints = false
         if let superview = superview {

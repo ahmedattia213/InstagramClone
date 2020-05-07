@@ -13,6 +13,7 @@ class FirebaseHelper {
     static let currentUserUid = Auth.auth().currentUser?.uid
     //Database
     static let usersDatabase = Database.database().reference().child("users")
+    static let usersFollowing = Database.database().reference().child("following")
     //Storage
     static let profileImages = Storage.storage().reference().child("profile_images")
     static let userPostsStorage = Storage.storage().reference().child("user_posts")
@@ -22,7 +23,7 @@ class FirebaseHelper {
     static func fetchUserWithUid(_ uid: String, completionHandler: @escaping (User) -> Void) {
           self.usersDatabase.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
               guard let dict = snapshot.value as? [String: Any] else { return }
-              let userFetched = User(dictionary: dict)
+            let userFetched = User(uid: uid, dictionary: dict)
               completionHandler(userFetched)
           }) { (err) in
                print("Failed to fetch current user: ", err)
@@ -30,7 +31,6 @@ class FirebaseHelper {
       }
 
     static func observePostsWithUid(_ uid: String, completionHandler: @escaping (Post) -> Void) {
-          guard let uid = FirebaseHelper.currentUserUid else { return }
           let postsRef = FirebaseHelper.userPostsDatabase.child(uid)
           postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
               guard let dict = snapshot.value as? [String: Any] else { return }

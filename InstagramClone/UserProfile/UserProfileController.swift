@@ -14,24 +14,30 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     var posts = [Post]() {
         didSet {
-
         }
     }
+    
     var user: User? {
         didSet {
             self.navigationItem.title = self.user?.username
+            observePosts()
+            setupNavbar()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavbar()
+        checkIfUserExists()
         setupCollectionView()
-        fetchUser()
         setupLogoutButton()
-        observePosts()
     }
 
+
+    private func checkIfUserExists() {
+        if self.user == nil {
+            fetchUser(uid: Auth.auth().currentUser?.uid ?? "")
+        }
+    }
     private func setupCollectionView() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .background
@@ -40,10 +46,10 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
 
     private func observePosts() {
-        guard let uid = FirebaseHelper.currentUserUid else { return }
+        guard let uid = self.user?.uid else { return }
         FirebaseHelper.observePostsWithUid(uid) { (newPost) in
-             self.posts.insert(newPost, at: 0)
-             self.collectionView.reloadData()
+            self.posts.insert(newPost, at: 0)
+            self.collectionView.reloadData()
         }
     }
 
@@ -57,9 +63,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
 
-    private func fetchUser() {
-        guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
-        FirebaseHelper.fetchUserWithUid(currentUserUid) { (user) in
+    private func fetchUser(uid: String) {
+        FirebaseHelper.fetchUserWithUid(uid) { (user) in
             self.user = user
             self.collectionView.reloadData()
         }
