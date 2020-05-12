@@ -14,13 +14,10 @@ class HomePostCell: BaseCollectionViewCell {
     static let reuseIdentifier = "HomePostCellReuseId"
     var post: Post? {
         didSet {
-            setupCellWithPost(post!)
-        }
-    }
-
-    var user: User? {
-        didSet {
-            setupCellWithUser(user!)
+            guard let post = post else { return }
+            guard let user = post.user else { return }
+            setupCellWithPost(post)
+            setupCellWithUser(user)
         }
     }
 
@@ -62,7 +59,7 @@ class HomePostCell: BaseCollectionViewCell {
 
     let captionButton = UIButton.systemButton(titleColor: .black, font: UIFont.boldSystemFont(ofSize: 13), target: self, selector: #selector(handleCaption))
 
-    let dateLabel = UILabel(text: "1 week ago", font: UIFont.systemFont(ofSize: 13), color: .lightGray)
+    let dateLabel = UILabel(text: "", font: UIFont.systemFont(ofSize: 13), color: .lightGray)
     
     @objc func handleCaption() {
         print("HEY THERE")
@@ -129,7 +126,6 @@ class HomePostCell: BaseCollectionViewCell {
     }
 
     private func setupCellWithUser(_ user: User) {
-        print(user)
         self.postUsernameLabel.text = user.username
         guard let profImageUrl = URL(string: user.profileImageUrl ?? "") else { return }
         self.postProfileImageView.kf.setImage(with: profImageUrl)
@@ -137,11 +133,13 @@ class HomePostCell: BaseCollectionViewCell {
 
     private func setupCellWithPost(_ post: Post) {
         guard let postUrl = URL(string: post.postUrl ?? "") else { return }
-        guard let user = self.user else { return }
+        guard let user = post.user else { return }
         postImageView.kf.setImage(with: postUrl)
         let captionText = NSMutableAttributedString(string: "\(user.username ?? "") ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         captionText.append(NSAttributedString(string: post.caption ?? "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.black]))
-        self.captionButton.setAttributedTitle(captionText, for: .normal)
+        self.captionButton.setAttributedTitle(captionText, for: .normal)        
+        dateLabel.text = (post.creationDate)?.timeAgoAlgorithm(format: "MMM d, yyyy")
+
     }
 
     private func setupTaps() {

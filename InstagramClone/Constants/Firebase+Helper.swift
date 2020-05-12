@@ -30,13 +30,16 @@ class FirebaseHelper {
           }
       }
 
-    static func observePostsWithUid(_ uid: String, completionHandler: @escaping (Post) -> Void) {
-          let postsRef = FirebaseHelper.userPostsDatabase.child(uid)
+    static func observePostsWithUid(_ user: User, completionHandler: @escaping (Post?) -> Void, failureHandler: @escaping(_ errorMessage: String?) -> Void) {
+        let postsRef = FirebaseHelper.userPostsDatabase.child(user.uid)
           postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
               guard let dict = snapshot.value as? [String: Any] else { return }
-              let newPost = Post(dictionary: dict)
+            let newPost = Post(user: user, dictionary: dict)
               completionHandler(newPost)
+              failureHandler(nil)
           }) { (err) in
+            completionHandler(nil)
+            failureHandler(err.localizedDescription)
               print("Failed to retreive latest post: ", err)
           }
       }

@@ -160,7 +160,7 @@ class UserProfileHeader: BaseReusableView {
             }
         }
     }
-    
+
     fileprivate func unfollowUser() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         guard let userId = self.user?.uid else { return }

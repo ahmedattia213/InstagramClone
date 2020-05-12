@@ -46,11 +46,17 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
 
     private func observePosts() {
-        guard let uid = self.user?.uid else { return }
-        FirebaseHelper.observePostsWithUid(uid) { (newPost) in
-            self.posts.insert(newPost, at: 0)
-            self.collectionView.reloadData()
-        }
+        guard let user = self.user else { return }
+        FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
+                  if let newPost = newPost {
+                      self.posts.insert(newPost, at: 0)
+                      self.collectionView.reloadData()
+                  }
+              }) { (err) in
+                  if let err = err {
+                      print(err)
+                  }
+              }
     }
 
     private func setupLogoutButton() {

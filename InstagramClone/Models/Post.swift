@@ -10,16 +10,19 @@ import Foundation
 
 class Post: NSObject {
 
+    var user: User?
     var caption: String?
-    var creationDate: NSNumber?
+    var creationDate: Date?
     var imageHeight: NSNumber?
     var imageWidth: NSNumber?
     var postUrl: String?
 
-    init(dictionary: [String: Any]) {
+    init(user: User, dictionary: [String: Any]) {
         super.init()
+        self.user = user
         caption = dictionary["caption"] as? String
-        creationDate = dictionary["creationDate"] as? NSNumber
+        let secondsFrom1970 = dictionary["creationDate"] as? Double ?? 0
+        creationDate = Date(timeIntervalSince1970: secondsFrom1970)
         imageHeight = dictionary["imageHeight"] as? NSNumber
         imageWidth = dictionary["imageWidth"] as? NSNumber
         postUrl = dictionary["postUrl"] as? String
