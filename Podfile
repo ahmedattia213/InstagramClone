@@ -3,15 +3,15 @@
 
 target 'InstagramClone' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+  use_modular_headers!
 
-  # Pods for InstagramClone
-pod 'Firebase/Core'
-pod 'Firebase/Auth'
-pod 'Firebase/Database'
-pod 'Firebase/Storage'
-pod 'SwiftLint'
-pod 'Kingfisher'
-pod 'SVProgressHUD'
+    # Pods for InstagramClone
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
+  pod 'SwiftLint'
+  pod 'Kingfisher'
+  pod 'SVProgressHUD'
 
 end

@@ -21,6 +21,6 @@ class User: NSObject {
     }
 
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.username == rhs.username && lhs.profileImageUrl == rhs.profileImageUrl
+        return lhs.uid == rhs.uid
     }
 }

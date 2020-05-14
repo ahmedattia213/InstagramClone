@@ -19,11 +19,6 @@ extension Date {
         let secondsAgo = Int(Date().timeIntervalSince(self))
         let week = 7 * 24 * 60 * 60
         let month = 4 * week
-        
-        print("HELLO 1")
-        print(self.convertToDateWithSeconds(format: format))
-        print(self.timeAgoDisplay())
-        print("HELLO 1")
         if secondsAgo < month && (secondsAgo/week) > 1 {
             return self.convertToDateWithSeconds(format: format)
         } else {

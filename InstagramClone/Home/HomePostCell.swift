@@ -78,12 +78,7 @@ class HomePostCell: BaseCollectionViewCell {
         setupTaps()
     }
     
-    private func removeOldViews() {
-        for view in self.subviews {
-            view.removeFromSuperview()
-        }
-
-    }
+ 
     private func setupProfileDetailsContainer() {
         self.addSubview(profileDetailsContainer)
         profileDetailsContainer.anchor(self.topAnchor, left: self.leftAnchor, right: self.rightAnchor, heightConstant: 50)

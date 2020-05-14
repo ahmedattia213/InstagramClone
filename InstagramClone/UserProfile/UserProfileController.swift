@@ -60,7 +60,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
 
     private func setupLogoutButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self, action: #selector(handleLogout))
     }
     private func setupNavbar() {
         navigationController?.navigationBar.barTintColor = .background

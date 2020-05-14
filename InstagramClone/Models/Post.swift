@@ -29,7 +29,7 @@ class Post: NSObject {
     }
 
     static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.caption == rhs.caption && lhs.creationDate == rhs.creationDate
+        return lhs.user == rhs.user && lhs.caption == rhs.caption && lhs.creationDate == rhs.creationDate
             && lhs.imageHeight == rhs.imageHeight
             && lhs.imageWidth == rhs.imageWidth
             && lhs.postUrl == rhs.postUrl

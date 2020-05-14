@@ -22,8 +22,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         fetchCurrentUser()
         setupNavBar()
         setupCollectionView()
-        observePosts()
-        fetchFollowingPosts()
+        fetchAllPosts()
     }
     
     private func setupNavBar() {
@@ -31,21 +30,37 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         let logoColour = UIColor(redValue: 18, greenValue: 18, blueValue: 18, alphaValue: 1)
         let imageView = UIImageView(image: #imageLiteral(resourceName: "Instagram_logo_white"), contentMode: .scaleAspectFit, tintColour: logoColour)
         navigationItem.titleView = imageView
+        let dmBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "dm"), style: .plain, target: self, action: #selector(handleOpenDm))
+        let cameraBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "camera"), style: .plain, target: self, action: #selector(handleOpenCamera))
+        navigationItem.rightBarButtonItem = dmBarButton
+        navigationItem.leftBarButtonItem = cameraBarButton
     }
     
+    @objc fileprivate func handleOpenDm() {
+        print("Open direct messages")
+    }
+    @objc fileprivate func handleOpenCamera() {
+        print("Open Camera")
+        let vc = CameraController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
     private func fetchPostsAndAppend(_ user: User) {
         FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
             if let newPost = newPost {
-                self.posts.insert(newPost, at: 0)
-                self.collectionView.reloadData()
+                if !self.posts.contains(newPost) {
+                    self.posts.insert(newPost, at: 0)
+                    self.collectionView.reloadData()
+                }
             }
+            self.collectionView.refreshControl?.endRefreshing()
         }) { (err) in
             if let err = err {
                 print(err)
             }
         }
     }
-
+    
     private func observePosts() {
         guard let uid = FirebaseHelper.currentUserUid else { return }
         FirebaseHelper.fetchUserWithUid(uid) { (user) in
@@ -72,10 +87,26 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
     }
     
+    lazy var refreshControl: UIRefreshControl = {
+       let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh() {
+        fetchAllPosts()
+    }
+    
+    fileprivate func fetchAllPosts() {
+        posts.removeAll()
+        observePosts()
+        fetchFollowingPosts()
+    }
     private func setupCollectionView() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.register(HomePostCell.self, forCellWithReuseIdentifier: HomePostCell.reuseIdentifier)
+        collectionView.refreshControl = refreshControl
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
