@@ -40,7 +40,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print("Open direct messages")
     }
     @objc fileprivate func handleOpenCamera() {
-        print("Open Camera")
         let vc = CameraController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
