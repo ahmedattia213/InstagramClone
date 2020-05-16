@@ -10,7 +10,6 @@
 		C503CE842346D6FC00D3C7D7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C503CE832346D6FC00D3C7D7 /* User.swift */; };
 		C50C9D0822ED12A700A22A5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D0722ED12A700A22A5D /* AppDelegate.swift */; };
 		C50C9D0A22ED12A700A22A5D /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D0922ED12A700A22A5D /* SignUpController.swift */; };
-		C50C9D0D22ED12A700A22A5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D0B22ED12A700A22A5D /* Main.storyboard */; };
 		C50C9D0F22ED12AA00A22A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */; };
 		C50C9D1222ED12AA00A22A5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C50C9D1022ED12AA00A22A5D /* LaunchScreen.storyboard */; };
 		C50C9D2222ED1F9100A22A5D /* UILabel+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D1A22ED1F9100A22A5D /* UILabel+Helper.swift */; };
@@ -43,6 +42,7 @@
 		C5AAFA3A22F143BB0018C012 /* Validations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAFA3922F143BB0018C012 /* Validations.swift */; };
 		C5BF76192340F06B00D892FC /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BF76182340F06B00D892FC /* Post.swift */; };
 		C5BF761B2340F4EF00D892FC /* UserProfilePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5BF761A2340F4EF00D892FC /* UserProfilePhotoCell.swift */; };
+		C5C33C6E246F901700B8EC84 /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C33C6D246F901700B8EC84 /* VideoPlayer.swift */; };
 		C5E3815522F590C20093D2F3 /* PhotoSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */; };
 		C5FCECFA234ADC9300BAD054 /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FCECF9234ADC9300BAD054 /* UserSearchController.swift */; };
 		C5FCECFC234AE1AC00BAD054 /* UISearchbar+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FCECFB234AE1AC00BAD054 /* UISearchbar+Helper.swift */; };
@@ -57,7 +57,6 @@
 		C50C9D0422ED12A700A22A5D /* InstagramClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C50C9D0722ED12A700A22A5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C50C9D0922ED12A700A22A5D /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
-		C50C9D0C22ED12A700A22A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C50C9D1122ED12AA00A22A5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C50C9D1322ED12AA00A22A5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		C5AAFA3922F143BB0018C012 /* Validations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validations.swift; sourceTree = "<group>"; };
 		C5BF76182340F06B00D892FC /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C5BF761A2340F4EF00D892FC /* UserProfilePhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfilePhotoCell.swift; sourceTree = "<group>"; };
+		C5C33C6D246F901700B8EC84 /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
 		C5E3815422F590C20093D2F3 /* PhotoSelectorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorCell.swift; sourceTree = "<group>"; };
 		C5FCECF9234ADC9300BAD054 /* UserSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
 		C5FCECFB234AE1AC00BAD054 /* UISearchbar+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchbar+Helper.swift"; sourceTree = "<group>"; };
@@ -157,7 +157,6 @@
 				C5AAFA3822F143A70018C012 /* Helpers */,
 				C50C9D0722ED12A700A22A5D /* AppDelegate.swift */,
 				C50C9D3522EFD9AD00A22A5D /* MainTabBarController.swift */,
-				C50C9D0B22ED12A700A22A5D /* Main.storyboard */,
 				C50C9D0E22ED12AA00A22A5D /* Assets.xcassets */,
 				C50C9D1022ED12AA00A22A5D /* LaunchScreen.storyboard */,
 				C50C9D1322ED12AA00A22A5D /* Info.plist */,
@@ -212,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				C570F160246D1DC1003E8B0B /* CameraController.swift */,
+				C5C33C6D246F901700B8EC84 /* VideoPlayer.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -342,7 +342,6 @@
 				C50C9D1222ED12AA00A22A5D /* LaunchScreen.storyboard in Resources */,
 				C50C9D3022EE8B8E00A22A5D /* GoogleService-Info.plist in Resources */,
 				C50C9D0F22ED12AA00A22A5D /* Assets.xcassets in Resources */,
-				C50C9D0D22ED12A700A22A5D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +415,7 @@
 				C5BF76192340F06B00D892FC /* Post.swift in Sources */,
 				C50C9D2522ED1F9100A22A5D /* UIView+Anchors.swift in Sources */,
 				C558C4DE246A0CCE005CFF4C /* DateManager.swift in Sources */,
+				C5C33C6E246F901700B8EC84 /* VideoPlayer.swift in Sources */,
 				C50C9D2222ED1F9100A22A5D /* UILabel+Helper.swift in Sources */,
 				C58C7E3B2341636B00BF4265 /* HomeController.swift in Sources */,
 				C5AAFA3A22F143BB0018C012 /* Validations.swift in Sources */,
@@ -449,14 +449,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C50C9D0B22ED12A700A22A5D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C50C9D0C22ED12A700A22A5D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C50C9D1022ED12AA00A22A5D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
