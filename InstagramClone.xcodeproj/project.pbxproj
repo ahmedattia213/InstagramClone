@@ -29,6 +29,9 @@
 		C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */; };
 		C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */; };
 		C50DA47C23D605D7003CB483 /* ViewController+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */; };
+		C54F0EC6246FC34400AF9093 /* CameraButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F0EC5246FC34400AF9093 /* CameraButtonsContainer.swift */; };
+		C54F0EC8246FC35100AF9093 /* MediaButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F0EC7246FC35100AF9093 /* MediaButtonsContainer.swift */; };
+		C54F0ECC246FFC1F00AF9093 /* CameraController+Handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F0ECB246FFC1F00AF9093 /* CameraController+Handlers.swift */; };
 		C5516B36246D46540087CB10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5516B35246D46540087CB10 /* SceneDelegate.swift */; };
 		C5560E8F23DE8DD8007D9F5F /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5560E8E23DE8DD8007D9F5F /* SearchCell.swift */; };
 		C558C4DE246A0CCE005CFF4C /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C558C4DD246A0CCE005CFF4C /* DateManager.swift */; };
@@ -77,6 +80,9 @@
 		C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cells+Helper.swift"; sourceTree = "<group>"; };
 		C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Helper.swift"; sourceTree = "<group>"; };
+		C54F0EC5246FC34400AF9093 /* CameraButtonsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonsContainer.swift; sourceTree = "<group>"; };
+		C54F0EC7246FC35100AF9093 /* MediaButtonsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaButtonsContainer.swift; sourceTree = "<group>"; };
+		C54F0ECB246FFC1F00AF9093 /* CameraController+Handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraController+Handlers.swift"; sourceTree = "<group>"; };
 		C5516B35246D46540087CB10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C5560E8E23DE8DD8007D9F5F /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		C558C4DD246A0CCE005CFF4C /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
@@ -211,7 +217,10 @@
 			isa = PBXGroup;
 			children = (
 				C570F160246D1DC1003E8B0B /* CameraController.swift */,
+				C54F0ECB246FFC1F00AF9093 /* CameraController+Handlers.swift */,
 				C5C33C6D246F901700B8EC84 /* VideoPlayer.swift */,
+				C54F0EC5246FC34400AF9093 /* CameraButtonsContainer.swift */,
+				C54F0EC7246FC35100AF9093 /* MediaButtonsContainer.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -413,6 +422,7 @@
 				C50C9D2C22ED553500A22A5D /* Colors.swift in Sources */,
 				C5FCECFA234ADC9300BAD054 /* UserSearchController.swift in Sources */,
 				C5BF76192340F06B00D892FC /* Post.swift in Sources */,
+				C54F0EC8246FC35100AF9093 /* MediaButtonsContainer.swift in Sources */,
 				C50C9D2522ED1F9100A22A5D /* UIView+Anchors.swift in Sources */,
 				C558C4DE246A0CCE005CFF4C /* DateManager.swift in Sources */,
 				C5C33C6E246F901700B8EC84 /* VideoPlayer.swift in Sources */,
@@ -425,6 +435,7 @@
 				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
 				C5516B36246D46540087CB10 /* SceneDelegate.swift in Sources */,
 				C58C7E3D234171BD00BF4265 /* HomePostCell.swift in Sources */,
+				C54F0ECC246FFC1F00AF9093 /* CameraController+Handlers.swift in Sources */,
 				C50C9D3422EFAD0400A22A5D /* ImagePickerHelper.swift in Sources */,
 				C50C9D3822EFDB7500A22A5D /* UserProfileController.swift in Sources */,
 				C5E3815522F590C20093D2F3 /* PhotoSelectorCell.swift in Sources */,
@@ -443,6 +454,7 @@
 				C50C9D2722ED1F9100A22A5D /* UIColor+Helper.swift in Sources */,
 				C570F161246D1DC1003E8B0B /* CameraController.swift in Sources */,
 				C5A453CE22F55B330014F91F /* PhotoSelectorController.swift in Sources */,
+				C54F0EC6246FC34400AF9093 /* CameraButtonsContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

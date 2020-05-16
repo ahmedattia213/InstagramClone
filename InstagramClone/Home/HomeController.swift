@@ -10,21 +10,21 @@ import UIKit
 import FirebaseAuth
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+
     var posts = [Post]() {
         didSet {
             posts.sort(by: { $0.creationDate ?? Date() > $1.creationDate ?? Date() })
         }
     }
     var user: User?
-    
+
     override func viewDidLoad() {
         fetchCurrentUser()
         setupNavBar()
         setupCollectionView()
         fetchAllPosts()
     }
-    
+
     private func setupNavBar() {
         navigationController?.navigationBar.barTintColor = .background
         let logoColour = UIColor(redValue: 18, greenValue: 18, blueValue: 18, alphaValue: 1)
@@ -35,11 +35,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         navigationItem.rightBarButtonItem = dmBarButton
         navigationItem.leftBarButtonItem = cameraBarButton
     }
-    
-    @objc fileprivate func handleOpenDm() {
+
+    @objc private func handleOpenDm() {
         print("Open direct messages")
     }
-    @objc fileprivate func handleOpenCamera() {
+    @objc private func handleOpenCamera() {
         let vc = CameraController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
@@ -59,15 +59,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
         }
     }
-    
+
     private func observePosts() {
         guard let uid = FirebaseHelper.currentUserUid else { return }
         FirebaseHelper.fetchUserWithUid(uid) { (user) in
             self.fetchPostsAndAppend(user)
         }
     }
-    
-    fileprivate func fetchFollowingPosts() {
+
+    private func fetchFollowingPosts() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         print(currentUserUid, "   CURENT")
         let ref = FirebaseHelper.usersFollowing.child(currentUserUid)
@@ -77,7 +77,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 }
         }
     }
-    
+
     private func fetchCurrentUser() {
         guard let uid = FirebaseHelper.currentUserUid else { return }
         FirebaseHelper.fetchUserWithUid(uid) { (user) in
@@ -85,18 +85,18 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             self.collectionView.reloadData()
         }
     }
-    
+
     lazy var refreshControl: UIRefreshControl = {
        let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return refreshControl
     }()
-    
+
     @objc func handleRefresh() {
         fetchAllPosts()
     }
-    
-    fileprivate func fetchAllPosts() {
+
+    private func fetchAllPosts() {
         posts.removeAll()
         observePosts()
         fetchFollowingPosts()
@@ -107,21 +107,21 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView.register(HomePostCell.self, forCellWithReuseIdentifier: HomePostCell.reuseIdentifier)
         collectionView.refreshControl = refreshControl
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePostCell.reuseIdentifier, for: indexPath) as? HomePostCell else { return UICollectionViewCell() }
         cell.post = posts[indexPath.row]
         return cell
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 585)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }

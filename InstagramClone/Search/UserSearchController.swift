@@ -66,7 +66,7 @@ UISearchBarDelegate {
             print("Failed to fetch in search ", err)
         }
     }
-    
+
     private func setupCollectionView() {
         collectionView.contentInset = UIEdgeInsets(top: 6, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = .white
@@ -75,7 +75,7 @@ UISearchBarDelegate {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.keyboardDismissMode = .onDrag
     }
-    
+
     lazy var cancelButton = UIButton.systemButton( title: "Cancel", titleColor: .black, backgroundColor: .clear, font: UIFont.systemFont(ofSize: 15), target: self, selector: #selector(handleEndFiltering))
 
     @objc func handleEndFiltering() {

@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class VideoPlayer: UIView {
-    
+
     let avPlayer = AVPlayer()
     var avPlayerLayer: AVPlayerLayer!
     var videoURL: URL! {
@@ -46,8 +46,11 @@ class VideoPlayer: UIView {
         avPlayer.play()
     }
 
+    func stop() {
+        avPlayer.replaceCurrentItem(with: nil)
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

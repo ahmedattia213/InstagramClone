@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         if #available(iOS 13.0, *) {
-                   
+
                } else {
                    window = UIWindow(frame: UIScreen.main.bounds)
                    window?.makeKeyAndVisible()

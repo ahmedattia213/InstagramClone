@@ -60,7 +60,7 @@ class SignUpController: UIViewController {
         plusPhotoButton.anchor(view.topAnchor, topConstant: 40, widthConstant: 140, heightConstant: 140, centerXInSuperView: true)
         textfieldStackView.anchor(plusPhotoButton.bottomAnchor, topConstant: 20, heightConstant: 190, centerXInSuperView: true)
         textfieldStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8).isActive = true
-        signInButton.anchor(bottom: bottomAnchor, bottomConstant: 5 , centerXInSuperView: true)
+        signInButton.anchor(bottom: bottomAnchor, bottomConstant: 5, centerXInSuperView: true)
         setupSignInButtonText()
     }
 

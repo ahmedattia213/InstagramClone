@@ -14,7 +14,7 @@ extension Date {
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
     }
-    
+
     func timeAgoAlgorithm(format: String) -> String {
         let secondsAgo = Int(Date().timeIntervalSince(self))
         let week = 7 * 24 * 60 * 60
@@ -25,7 +25,7 @@ extension Date {
             return self.timeAgoDisplay()
         }
     }
-    
+
     func timeAgoDisplay() -> String {
         let secondsAgo = Int(Date().timeIntervalSince(self))
         let minute = 60

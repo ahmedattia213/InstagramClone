@@ -60,12 +60,11 @@ class HomePostCell: BaseCollectionViewCell {
     let captionButton = UIButton.systemButton(titleColor: .black, font: UIFont.boldSystemFont(ofSize: 13), target: self, selector: #selector(handleCaption))
 
     let dateLabel = UILabel(text: "", font: UIFont.systemFont(ofSize: 13), color: .lightGray)
-    
+
     @objc func handleCaption() {
         print("HEY THERE")
     }
-    
-  
+
     override func setupViews() {
         super.setupViews()
         self.backgroundColor = .white
@@ -77,8 +76,7 @@ class HomePostCell: BaseCollectionViewCell {
         setupDateLabel()
         setupTaps()
     }
-    
- 
+
     private func setupProfileDetailsContainer() {
         self.addSubview(profileDetailsContainer)
         profileDetailsContainer.anchor(self.topAnchor, left: self.leftAnchor, right: self.rightAnchor, heightConstant: 50)
@@ -132,7 +130,7 @@ class HomePostCell: BaseCollectionViewCell {
         postImageView.kf.setImage(with: postUrl)
         let captionText = NSMutableAttributedString(string: "\(user.username ?? "") ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         captionText.append(NSAttributedString(string: post.caption ?? "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.black]))
-        self.captionButton.setAttributedTitle(captionText, for: .normal)        
+        self.captionButton.setAttributedTitle(captionText, for: .normal)
         dateLabel.text = (post.creationDate)?.timeAgoAlgorithm(format: "MMM d, yyyy")
 
     }

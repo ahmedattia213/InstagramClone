@@ -16,7 +16,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         didSet {
         }
     }
-    
+
     var user: User? {
         didSet {
             self.navigationItem.title = self.user?.username
@@ -24,14 +24,13 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             setupNavbar()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIfUserExists()
         setupCollectionView()
         setupLogoutButton()
     }
-
 
     private func checkIfUserExists() {
         if self.user == nil {
