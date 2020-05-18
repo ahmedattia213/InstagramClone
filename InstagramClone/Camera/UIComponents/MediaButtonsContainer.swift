@@ -18,6 +18,15 @@ class MediaButtonsContainer: UIView {
 
     lazy var saveMediaButton = UIButton.systemButton( image: UIImage(named: "save_image"), target: self, selector: #selector(handleSaveMedia))
 
+    lazy var savedLabel: UILabel = {
+        let label = UILabel(text: "Saved", font: UIFont.boldSystemFont(ofSize: 16), color: UIColor.white, textAlignment: .center, numberOfLines: 0)
+        label.backgroundColor = UIColor(hex: 0x000000, alpha: 0.4)
+        label.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+        label.layer.cornerRadius = 6
+        label.clipsToBounds = true
+        label.center = self.center
+        return label
+    }()
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

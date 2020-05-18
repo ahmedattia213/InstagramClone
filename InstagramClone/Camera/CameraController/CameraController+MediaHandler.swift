@@ -8,6 +8,7 @@
 
 import Foundation
 import Photos
+import UIKit
 extension CameraController: MediaContainerProtocol {
     func handleDismissMedia() {
         updateUiForCamera()
@@ -24,6 +25,9 @@ extension CameraController: MediaContainerProtocol {
                     print("Failed to save image to photo library: ", err)
                     return
                 }
+                DispatchQueue.main.async {
+                    self.showSavedMediaPopup()
+                }
                 print("Image saved successfully")
             }
         } else {
@@ -35,7 +39,27 @@ extension CameraController: MediaContainerProtocol {
                     print("Failed to save video to photo library: ", err)
                     return
                 }
+                DispatchQueue.main.async {
+                    self.showSavedMediaPopup()
+                }
                 print("video saved successfully")
+            }
+        }
+    }
+    
+    func showSavedMediaPopup() {
+        self.previewView.addSubview(mediaButtonsContainer.savedLabel)
+        mediaButtonsContainer.savedLabel.layer.transform = CATransform3DMakeScale(0, 0, 0)
+        self.mediaButtonsContainer.savedLabel.alpha = 1
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            self.mediaButtonsContainer.savedLabel.layer.transform = CATransform3DMakeScale(1, 1, 1)
+            
+        }) { (_) in
+            UIView.animate(withDuration: 0.5, delay: 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.mediaButtonsContainer.savedLabel.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
+                self.mediaButtonsContainer.savedLabel.alpha = 0
+            }) { (_) in
+                self.mediaButtonsContainer.savedLabel.removeFromSuperview()
             }
         }
     }
