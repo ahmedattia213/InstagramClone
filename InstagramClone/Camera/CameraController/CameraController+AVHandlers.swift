@@ -11,7 +11,7 @@ import AVFoundation
 import Photos
 
 extension CameraController {
-    
+
     func getCameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
         for device in discoverySession.devices where device.position == position {
@@ -19,20 +19,20 @@ extension CameraController {
         }
         return nil
     }
-    
+
     func setupCaptureSession() {
         //setup Inputs
         guard let videoDevice = AVCaptureDevice.default(for: .video), let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
         do {
             let videoInput = try AVCaptureDeviceInput(device: videoDevice)
-            
+
             if captureSession.canAddInput(videoInput) {
                 captureSession.addInput(videoInput)
             }
         } catch let err {
             print("Couldnt setup video device: ", err)
         }
-        
+
         do {
             let audioInput = try AVCaptureDeviceInput(device: audioDevice)
             if captureSession.canAddInput(audioInput) {
@@ -55,19 +55,19 @@ extension CameraController {
             self.captureSession.startRunning()
         }
     }
-    
+
     @objc func startTimer() {
         videoCounter += 1
         //        print("This is a second ", videoCounter)
     }
-    
+
     func killTimer() {
         videoTimer?.invalidate()
         videoTimer = nil
         videoCounter = 0
     }
-    
-    private func switchCamera() {
+
+     func switchCamera() {
         let currentCameraInput: AVCaptureInput = captureSession.inputs[0]
         let currentAudioInput: AVCaptureInput = captureSession.inputs[1]
         captureSession.beginConfiguration()
@@ -98,71 +98,6 @@ extension CameraController {
         captureSession.addInput(currentAudioInput)
         captureSession.commitConfiguration()
     }
-}
-extension CameraController: MediaContainerProtocol {
-    func handleDismissMedia() {
-        updateUiForCamera()
-    }
-    
-    func handleSaveMedia() {
-        let library = PHPhotoLibrary.shared()
-        if !previewImageView.isHidden {
-            guard let image = previewImageView.image else { return }
-            library.performChanges({
-                PHAssetChangeRequest.creationRequestForAsset(from: image)
-            }) { (_, err) in
-                if let err = err {
-                    print("Failed to save image to photo library: ", err)
-                    return
-                }
-                print("Image saved successfully")
-            }
-        } else {
-            guard let url = self.videoUrl else { return }
-            library.performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-            }) { (_, err) in
-                if let err = err {
-                    print("Failed to save video to photo library: ", err)
-                    return
-                }
-                print("video saved successfully")
-            }
-        }
-    }
-}
-
-extension CameraController: CameraContainerProtocol {
-    func handleCapturePhoto() {
-        if videoCounter == 0 {
-            let settings = AVCapturePhotoSettings()
-            output.capturePhoto(with: settings, delegate: self)
-        } else {
-            if videoCounter > 1 {
-                if movieOutput.isRecording {
-                    movieOutput.stopRecording()
-                }
-            }
-        }
-        killTimer()
-    }
-    
-    func handleHoldCaptureButton() {
-        videoTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(startTimer), userInfo: nil, repeats: true)
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let fileUrl = paths[0].appendingPathComponent("output.mov")
-        try? FileManager.default.removeItem(at: fileUrl)
-        movieOutput.startRecording(to: fileUrl, recordingDelegate: self as AVCaptureFileOutputRecordingDelegate)
-    }
-    
-    func handleDismissView() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func handleSwitchCamera() {
-        switchCamera()
-    }
-    
 }
 
 extension CameraController: AVCaptureFileOutputRecordingDelegate {
