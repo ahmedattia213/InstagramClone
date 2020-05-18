@@ -12,6 +12,26 @@ import Photos
 
 extension CameraController {
 
+    @objc func handleTapToFocus(tap: UITapGestureRecognizer) {
+        guard let videoDevice = self.videoDevice else { return }
+        do {
+            let pointOfFocus = tap.location(in: previewView)
+            try videoDevice.lockForConfiguration()
+            if videoDevice.isFocusPointOfInterestSupported && videoDevice.isFocusModeSupported(videoDevice.focusMode) {
+                videoDevice.focusPointOfInterest = pointOfFocus
+                videoDevice.focusMode = .autoFocus
+            }
+            if videoDevice.isExposurePointOfInterestSupported && videoDevice.isExposureModeSupported(videoDevice.exposureMode) {
+                videoDevice.exposurePointOfInterest = pointOfFocus
+                videoDevice.exposureMode = .autoExpose
+            }
+            showTapFocusIndicator(point: pointOfFocus)
+            videoDevice.unlockForConfiguration()
+        } catch let err {
+            print("Failed to lock for configuration: ", err)
+        }
+    }
+
     func getCameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
         for device in discoverySession.devices where device.position == position {
@@ -23,6 +43,7 @@ extension CameraController {
     func setupCaptureSession() {
         //setup Inputs
         guard let videoDevice = AVCaptureDevice.default(for: .video), let audioDevice = AVCaptureDevice.default(for: .audio) else { return }
+        self.videoDevice = videoDevice
         do {
             let videoInput = try AVCaptureDeviceInput(device: videoDevice)
 
@@ -67,45 +88,12 @@ extension CameraController {
         videoCounter = 0
     }
 
-     func switchCamera() {
-        let currentCameraInput: AVCaptureInput = captureSession.inputs[0]
-        let currentAudioInput: AVCaptureInput = captureSession.inputs[1]
-        captureSession.beginConfiguration()
-        captureSession.removeInput(currentCameraInput)
-        captureSession.removeInput(currentAudioInput)
-        var newCamera: AVCaptureDevice! = nil
-        if let input = currentCameraInput as? AVCaptureDeviceInput {
-            frontCam = !frontCam
-            if input.device.position == .back {
-                previewImageView.transform = CGAffineTransform(scaleX: -1, y: 1)
-                videoPlayer.transform = CGAffineTransform(scaleX: -1, y: 1)
-                newCamera = getCameraWithPosition(position: .front)
-            } else {
-                previewImageView.transform = CGAffineTransform(scaleX: 1, y: 1)
-                videoPlayer.transform = CGAffineTransform(scaleX: 1, y: 1)
-                newCamera = getCameraWithPosition(position: .back)
-            }
-        }
-        var newVideoInput: AVCaptureDeviceInput!
-        do {
-            newVideoInput = try AVCaptureDeviceInput(device: newCamera)
-        } catch let err1 {
-            print(err1)
-            print("Failed creating capture device input: ", err1)
-            return
-        }
-        captureSession.addInput(newVideoInput)
-        captureSession.addInput(currentAudioInput)
-        captureSession.commitConfiguration()
-    }
 }
 
 extension CameraController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         if error == nil {
-            self.videoUrl = outputFileURL
             self.updateUiForVideoPreview(url: outputFileURL)
-            videoPlayer.play()
         } else {
             print("Failed to complete video recording: ", error as Any)
         }

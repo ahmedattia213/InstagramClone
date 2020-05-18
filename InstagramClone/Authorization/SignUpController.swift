@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class SignUpController: UIViewController {
-    var imagePicker: ImagePickerHelper!
+    var imagePicker: ImagePicker!
     let plusPhotoButton = UIButton.systemButton(image: UIImage(named: "plus_photo"), target: self, selector: #selector(handlePhotoButton))
 
     let emailTextfield: UITextField = {
@@ -71,7 +71,7 @@ class SignUpController: UIViewController {
     }
 
     @objc func handlePhotoButton() {
-        imagePicker = ImagePickerHelper(presentedViewController: self, delegate: self)
+        imagePicker = ImagePicker(presentationController: self, delegate: self)
         imagePicker.present(from: self.view)
     }
 

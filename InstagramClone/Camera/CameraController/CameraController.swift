@@ -12,20 +12,23 @@ import Photos
 class CameraController: UIViewController {
     
     //UI Components
+    let tapImage = UIImageView(image: UIImage(named: "empty_circle"))
     let cameraButtonsContainer = CameraButtonsContainer()
     let mediaButtonsContainer = MediaButtonsContainer()
     let previewImageView = UIImageView(image: nil, contentMode: .scaleAspectFill, userInteraction: true)
     var videoPlayer: VideoPlayer = VideoPlayer(frame: .zero)
     let previewView = UIView()
-    
+    var imagePicker: ImagePicker!
+
     //AV Components
     let previewLayer = AVCaptureVideoPreviewLayer()
     let captureSession = AVCaptureSession()
     let output = AVCapturePhotoOutput()
     let movieOutput = AVCaptureMovieFileOutput()
-    
+    var videoDevice: AVCaptureDevice?
     //Logic helpers
     var frontCam = false
+    var torchOn = false
     var videoUrl: URL?
     var videoTimer: Timer?
     var videoCounter = 0 {
@@ -33,6 +36,7 @@ class CameraController: UIViewController {
             if videoCounter >= 10 {
                 if movieOutput.isRecording {
                     movieOutput.stopRecording()
+                    toggleTorchAfterCapturing()
                 }
             }
         }
@@ -48,6 +52,17 @@ class CameraController: UIViewController {
         mediaButtonsContainer.delegate = self
         setupUI()
         setupCaptureSession()
+        setupGestureRecognizers()
+    }
+    
+    func toggleTorchAfterCapturing() {
+        if torchOn {
+            handleToggleFlash()
+        }
+    }
+    fileprivate func setupGestureRecognizers() {
+       let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapToFocus(tap:)))
+        previewView.addGestureRecognizer(tapGesture)
     }
     
     fileprivate func setupUI() {
@@ -83,6 +98,8 @@ class CameraController: UIViewController {
     }
     
     func updateUiForVideoPreview(url: URL) {
+        self.videoUrl = url
+        videoPlayer.play()
         updateUiForImageAndVideo()
         videoPlayer.videoURL = url
         videoPlayer.isHidden = false
@@ -101,5 +118,22 @@ class CameraController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         previewLayer.frame = previewView.layer.bounds
+    }
+    
+    func showTapFocusIndicator(point: CGPoint) {
+        if tapImage.superview != nil {
+            tapImage.removeFromSuperview()
+        }
+        tapImage.frame = CGRect(x: point.x, y: point.y, width: 55, height: 55)
+        self.tapImage.alpha = 1
+        UIView.animate(withDuration: 0.5, animations: {
+            self.previewView.addSubview(self.tapImage)
+        }) { (_) in
+            UIView.animate(withDuration: 0.5, animations: {
+                self.tapImage.alpha = 0
+            }) { (_) in
+                self.tapImage.removeFromSuperview()
+            }
+        }
     }
 }

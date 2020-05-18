@@ -13,6 +13,8 @@ protocol CameraContainerProtocol: class {
     func handleHoldCaptureButton()
     func handleDismissView()
     func handleSwitchCamera()
+    func handleToggleFlash()
+    func handleAddMedia()
 }
 class CameraButtonsContainer: UIView {
 
@@ -28,6 +30,9 @@ class CameraButtonsContainer: UIView {
 
     lazy var switchCamButton = UIButton.systemButton( image: UIImage(named: "flip_camera"), target: self, selector: #selector(handleSwitchCamera))
 
+    lazy var toggleFlashButton = UIButton.systemButton( image: UIImage(named: "flash_off"), target: self, selector: #selector(handleToggleFlash))
+    
+    lazy var addMediaButton = UIButton.systemButton( image: UIImage(named: "add_media"), target: self, selector: #selector(handleAddMedia))
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -38,12 +43,16 @@ class CameraButtonsContainer: UIView {
     }
 
     private func setupUI() {
-        addSubviews(capturePhotoButton, dismissViewButton, switchCamButton)
+        addSubviews(capturePhotoButton, dismissViewButton, switchCamButton, toggleFlashButton, addMediaButton)
         switchCamButton.tintColor = .white
         dismissViewButton.tintColor = .white
+        addMediaButton.tintColor = .white
         capturePhotoButton.anchor(bottom: bottomAnchor, bottomConstant: 12, widthConstant: 80, heightConstant: 80, centerXInSuperView: true )
         dismissViewButton.anchor(topAnchor, right: rightAnchor, topConstant: 12, rightConstant: 12, widthConstant: 50, heightConstant: 50)
         switchCamButton.anchor(bottom: bottomAnchor, right: rightAnchor, bottomConstant: 0, rightConstant: 12, widthConstant: 60, heightConstant: 60)
+        toggleFlashButton.anchor(dismissViewButton.bottomAnchor, right: rightAnchor, topConstant: 10, rightConstant: 12, widthConstant: 50, heightConstant: 50)
+        addMediaButton.anchor(left: leftAnchor, bottom: bottomAnchor, leftConstant: 12, bottomConstant: 0, widthConstant: 60, heightConstant: 60)
+
     }
 
     @objc private func handleCapturePhoto() {
@@ -59,5 +68,13 @@ class CameraButtonsContainer: UIView {
 
     @objc private func handleSwitchCamera() {
         delegate?.handleSwitchCamera()
+    }
+    
+    @objc private func handleToggleFlash() {
+        delegate?.handleToggleFlash()
+    }
+    
+    @objc private func handleAddMedia() {
+        delegate?.handleAddMedia()
     }
 }
