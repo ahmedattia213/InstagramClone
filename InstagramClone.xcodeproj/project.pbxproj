@@ -39,6 +39,7 @@
 		C570F161246D1DC1003E8B0B /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C570F160246D1DC1003E8B0B /* CameraController.swift */; };
 		C58C7E3B2341636B00BF4265 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58C7E3A2341636B00BF4265 /* HomeController.swift */; };
 		C58C7E3D234171BD00BF4265 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58C7E3C234171BD00BF4265 /* HomePostCell.swift */; };
+		C59D0B202474160100584C2B /* CameraTransitionAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59D0B1F2474160100584C2B /* CameraTransitionAnimations.swift */; };
 		C5A453CE22F55B330014F91F /* PhotoSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */; };
 		C5A87FB92311D5160087A3E4 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A87FB82311D5160087A3E4 /* SharePhotoController.swift */; };
 		C5AAFA3722F125180018C012 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAFA3622F125180018C012 /* LoginController.swift */; };
@@ -92,6 +93,7 @@
 		C570F160246D1DC1003E8B0B /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		C58C7E3A2341636B00BF4265 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C58C7E3C234171BD00BF4265 /* HomePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
+		C59D0B1F2474160100584C2B /* CameraTransitionAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTransitionAnimations.swift; sourceTree = "<group>"; };
 		C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorController.swift; sourceTree = "<group>"; };
 		C5A87FB82311D5160087A3E4 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
 		C5AAFA3622F125180018C012 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				C54F0EC7246FC35100AF9093 /* MediaButtonsContainer.swift */,
 				C54F0EC5246FC34400AF9093 /* CameraButtonsContainer.swift */,
 				C5C33C6D246F901700B8EC84 /* VideoPlayer.swift */,
+				C59D0B1F2474160100584C2B /* CameraTransitionAnimations.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				C50C9D3622EFD9AD00A22A5D /* MainTabBarController.swift in Sources */,
 				C5B80648247265C80055065E /* CameraController+MediaHandler.swift in Sources */,
 				C5AAFA3722F125180018C012 /* LoginController.swift in Sources */,
+				C59D0B202474160100584C2B /* CameraTransitionAnimations.swift in Sources */,
 				C503CE842346D6FC00D3C7D7 /* User.swift in Sources */,
 				C5B8064A247265D90055065E /* CameraController+CameraHandler.swift in Sources */,
 				C50C9D2922ED1F9100A22A5D /* UIImage+Helper.swift in Sources */,

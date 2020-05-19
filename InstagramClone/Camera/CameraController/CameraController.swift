@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 import Photos
-class CameraController: UIViewController {
+class CameraController: UIViewController, UIViewControllerTransitioningDelegate {
     
     //UI Components
     let tapImage = UIImageView(image: UIImage(named: "empty_circle"))
@@ -48,6 +48,7 @@ class CameraController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        transitioningDelegate = self
         cameraButtonsContainer.delegate = self
         mediaButtonsContainer.delegate = self
         setupUI()
@@ -63,6 +64,9 @@ class CameraController: UIViewController {
     fileprivate func setupGestureRecognizers() {
        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapToFocus(tap:)))
         previewView.addGestureRecognizer(tapGesture)
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleDismissView))
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
     }
     
     fileprivate func setupUI() {
@@ -135,5 +139,13 @@ class CameraController: UIViewController {
                 self.tapImage.removeFromSuperview()
             }
         }
+    }
+    let customAnimationPresenter = CameraAnimationPresenter()
+    let customAnimationDismisser = CameraAnimationDismisser()
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return customAnimationPresenter
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return customAnimationDismisser
     }
 }

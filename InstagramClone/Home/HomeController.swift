@@ -23,6 +23,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         setupNavBar()
         setupCollectionView()
         fetchAllPosts()
+        setupSwipeGestureRecognizer()
+    }
+
+    private func setupSwipeGestureRecognizer() {
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleOpenCamera))
+        swipeRightGesture.direction = .right
+        self.view.addGestureRecognizer(swipeRightGesture)
     }
 
     private func setupNavBar() {
@@ -39,11 +46,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     @objc private func handleOpenDm() {
         print("Open direct messages")
     }
+
     @objc private func handleOpenCamera() {
-        let vc = CameraController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let cameraController = CameraController()
+        cameraController.modalPresentationStyle = .fullScreen
+        self.present(cameraController, animated: true, completion: nil)
     }
+
     private func fetchPostsAndAppend(_ user: User) {
         FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
             if let newPost = newPost {

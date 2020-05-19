@@ -46,7 +46,7 @@ extension CameraController: CameraContainerProtocol, ImagePickerDelegate {
         movieOutput.startRecording(to: fileUrl, recordingDelegate: self as AVCaptureFileOutputRecordingDelegate)
     }
 
-    func handleDismissView() {
+    @objc func handleDismissView() {
         self.dismiss(animated: true, completion: nil)
     }
 
