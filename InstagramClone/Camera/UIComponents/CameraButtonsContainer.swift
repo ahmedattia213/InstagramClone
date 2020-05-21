@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CameraContainerProtocol: class {
+protocol CameraContainerDelegate: class {
     func handleCapturePhoto()
     func handleHoldCaptureButton()
     func handleDismissView()
@@ -18,7 +18,7 @@ protocol CameraContainerProtocol: class {
 }
 class CameraButtonsContainer: UIView {
 
-    weak var delegate: CameraContainerProtocol?
+    weak var delegate: CameraContainerDelegate?
 
     lazy var capturePhotoButton: UIButton = {
         let button = UIButton.systemButton( image: UIImage(named: "capture_photo"), target: self, selector: #selector(handleCapturePhoto))

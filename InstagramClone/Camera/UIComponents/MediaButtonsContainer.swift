@@ -7,12 +7,12 @@
 //
 
 import UIKit
-protocol MediaContainerProtocol: class {
+protocol MediaContainerDelegate: class {
     func handleDismissMedia()
     func handleSaveMedia()
 }
 class MediaButtonsContainer: UIView {
-    weak var delegate: MediaContainerProtocol?
+    weak var delegate: MediaContainerDelegate?
 
     lazy var dismissMediaButton = UIButton.systemButton( image: UIImage(named: "cancel_shadow"), target: self, selector: #selector(handleDismissMedia))
 

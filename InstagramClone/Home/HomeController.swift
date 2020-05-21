@@ -16,6 +16,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             posts.sort(by: { $0.creationDate ?? Date() > $1.creationDate ?? Date() })
         }
     }
+
     var user: User?
 
     override func viewDidLoad() {
@@ -110,6 +111,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         observePosts()
         fetchFollowingPosts()
     }
+
     private func setupCollectionView() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
@@ -120,6 +122,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePostCell.reuseIdentifier, for: indexPath) as? HomePostCell else { return UICollectionViewCell() }
         cell.post = posts[indexPath.row]
+        cell.delegate = self
         return cell
     }
 
@@ -128,10 +131,35 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 585)
+        return CGSize(width: view.frame.width, height: 560)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
+    }
+}
+
+extension HomeController: HomePostCellDelegate {
+    func didTapCommentWithPost(_ post: Post) {
+        print("comment tapped on this post ", post.caption)
+        let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
+        commentsController.hidesBottomBarWhenPushed = true   //best solution to hide tabbar
+        navigationController?.pushViewController(commentsController, animated: true)
+    }
+
+    func didTapSettings() {
+        print("settings tapped")
+    }
+
+    func didTapLike() {
+        print("like tapped")
+    }
+
+    func didTapSendDm() {
+        print("send dm tapped")
+    }
+
+    func didTapBookmark() {
+        print("bookmark tapped")
     }
 }

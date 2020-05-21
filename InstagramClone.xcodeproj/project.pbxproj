@@ -29,6 +29,7 @@
 		C50C9D3B22F005AB00A22A5D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */; };
 		C50C9D3D22F007DB00A22A5D /* Cells+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */; };
 		C50DA47C23D605D7003CB483 /* ViewController+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */; };
+		C52B8DF124768DC800F9A185 /* CommentInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52B8DF024768DC800F9A185 /* CommentInputAccessoryView.swift */; };
 		C54F0EC6246FC34400AF9093 /* CameraButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F0EC5246FC34400AF9093 /* CameraButtonsContainer.swift */; };
 		C54F0EC8246FC35100AF9093 /* MediaButtonsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F0EC7246FC35100AF9093 /* MediaButtonsContainer.swift */; };
 		C54F0ECC246FFC1F00AF9093 /* CameraController+AVHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54F0ECB246FFC1F00AF9093 /* CameraController+AVHandlers.swift */; };
@@ -40,6 +41,7 @@
 		C58C7E3B2341636B00BF4265 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58C7E3A2341636B00BF4265 /* HomeController.swift */; };
 		C58C7E3D234171BD00BF4265 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C58C7E3C234171BD00BF4265 /* HomePostCell.swift */; };
 		C59D0B202474160100584C2B /* CameraTransitionAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59D0B1F2474160100584C2B /* CameraTransitionAnimations.swift */; };
+		C59D0B2D247528F700584C2B /* CommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59D0B2C247528F700584C2B /* CommentsController.swift */; };
 		C5A453CE22F55B330014F91F /* PhotoSelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */; };
 		C5A87FB92311D5160087A3E4 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A87FB82311D5160087A3E4 /* SharePhotoController.swift */; };
 		C5AAFA3722F125180018C012 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AAFA3622F125180018C012 /* LoginController.swift */; };
@@ -83,6 +85,7 @@
 		C50C9D3A22F005AB00A22A5D /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		C50C9D3C22F007DB00A22A5D /* Cells+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cells+Helper.swift"; sourceTree = "<group>"; };
 		C50DA47B23D605D7003CB483 /* ViewController+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Helper.swift"; sourceTree = "<group>"; };
+		C52B8DF024768DC800F9A185 /* CommentInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccessoryView.swift; sourceTree = "<group>"; };
 		C54F0EC5246FC34400AF9093 /* CameraButtonsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonsContainer.swift; sourceTree = "<group>"; };
 		C54F0EC7246FC35100AF9093 /* MediaButtonsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaButtonsContainer.swift; sourceTree = "<group>"; };
 		C54F0ECB246FFC1F00AF9093 /* CameraController+AVHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraController+AVHandlers.swift"; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		C58C7E3A2341636B00BF4265 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		C58C7E3C234171BD00BF4265 /* HomePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
 		C59D0B1F2474160100584C2B /* CameraTransitionAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTransitionAnimations.swift; sourceTree = "<group>"; };
+		C59D0B2C247528F700584C2B /* CommentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsController.swift; sourceTree = "<group>"; };
 		C5A453CD22F55B330014F91F /* PhotoSelectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorController.swift; sourceTree = "<group>"; };
 		C5A87FB82311D5160087A3E4 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
 		C5AAFA3622F125180018C012 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -231,10 +235,20 @@
 		C58C7E392341634E00BF4265 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C59D0B2B247528E500584C2B /* Comments */,
 				C58C7E3A2341636B00BF4265 /* HomeController.swift */,
 				C58C7E3C234171BD00BF4265 /* HomePostCell.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		C59D0B2B247528E500584C2B /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				C59D0B2C247528F700584C2B /* CommentsController.swift */,
+				C52B8DF024768DC800F9A185 /* CommentInputAccessoryView.swift */,
+			);
+			path = Comments;
 			sourceTree = "<group>";
 		};
 		C5A453CC22F55B1F0014F91F /* UploadMedia */ = {
@@ -458,6 +472,7 @@
 				C50C9D2E22ED563A00A22A5D /* Fonts.swift in Sources */,
 				C50C9D2822ED1F9100A22A5D /* UITextView+Helper.swift in Sources */,
 				C50C9D2322ED1F9100A22A5D /* UIButton+Helper.swift in Sources */,
+				C59D0B2D247528F700584C2B /* CommentsController.swift in Sources */,
 				C5516B36246D46540087CB10 /* SceneDelegate.swift in Sources */,
 				C58C7E3D234171BD00BF4265 /* HomePostCell.swift in Sources */,
 				C54F0ECC246FFC1F00AF9093 /* CameraController+AVHandlers.swift in Sources */,
@@ -471,6 +486,7 @@
 				C50C9D3622EFD9AD00A22A5D /* MainTabBarController.swift in Sources */,
 				C5B80648247265C80055065E /* CameraController+MediaHandler.swift in Sources */,
 				C5AAFA3722F125180018C012 /* LoginController.swift in Sources */,
+				C52B8DF124768DC800F9A185 /* CommentInputAccessoryView.swift in Sources */,
 				C59D0B202474160100584C2B /* CameraTransitionAnimations.swift in Sources */,
 				C503CE842346D6FC00D3C7D7 /* User.swift in Sources */,
 				C5B8064A247265D90055065E /* CameraController+CameraHandler.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIButton {
     static public func systemButton(size: Int? = nil, title: String? = nil, image: UIImage? = nil, titleColor: UIColor? = .white,
-                                    backgroundColor: UIColor = .clear, font: UIFont? = nil, target: Any? = nil, selector: Selector? = nil) -> UIButton {
+                                    tintColor: UIColor? = nil, backgroundColor: UIColor = .clear, font: UIFont? = nil, target: Any? = nil, selector: Selector? = nil) -> UIButton {
         let button = UIButton(type: .system)
         if let size = size {
             button.frame = CGRect(x: 0, y: 0, width: size, height: size)
@@ -21,6 +21,9 @@ extension UIButton {
         button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = font
         button.backgroundColor = backgroundColor
+        if let tintColor = tintColor {
+            button.tintColor = tintColor
+        }
         if let selector = selector {
             button.addTarget(target, action: selector, for: .touchUpInside)
         }

@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-extension CameraController: CameraContainerProtocol, ImagePickerDelegate {
+extension CameraController: CameraContainerDelegate, ImagePickerDelegate {
     func didSelect(selectedMedia: Any?) {
         if let image = selectedMedia as? UIImage {
             self.updateUiForImagePreview(image: image)
