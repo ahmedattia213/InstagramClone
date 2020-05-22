@@ -18,7 +18,7 @@ class FirebaseHelper {
     static let profileImages = Storage.storage().reference().child("profile_images")
     static let userPostsStorage = Storage.storage().reference().child("user_posts")
     static let userPostsDatabase = Database.database().reference().child("user_posts")
-
+    static let commentsDatabase = Database.database().reference().child("comments")
     //Fetching User with Uid
     static func fetchUserWithUid(_ uid: String, completionHandler: @escaping (User) -> Void) {
           self.usersDatabase.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -30,11 +30,28 @@ class FirebaseHelper {
           }
       }
 
+    static func observeCommentsWithPostId(_ postId: String, completionHandler: @escaping(_ comment: Comment?) -> Void, failureHandler: @escaping(_ errorMessage: String) -> Void) {
+        let commentsRef = commentsDatabase.child(postId)
+        commentsRef.queryOrdered(byChild: "timeStamp").observe(.childAdded, with: { (snapshot) in
+            guard let dict = snapshot.value as? [String: Any] else { completionHandler(nil) ; return }
+            guard let userUid = dict["uid"] as? String else { completionHandler(nil) ; return }
+            fetchUserWithUid(userUid) { (user) in
+                let comment = Comment(user: user, dictionary: dict)
+                completionHandler(comment)
+                print("Fetched Comment Successfully")
+            }
+        }) { (err) in
+            failureHandler(err.localizedDescription)
+            print("Failed to retrieve comments for Post: ", err)
+        }
+    }
     static func observePostsWithUid(_ user: User, completionHandler: @escaping (Post?) -> Void, failureHandler: @escaping(_ errorMessage: String?) -> Void) {
         let postsRef = FirebaseHelper.userPostsDatabase.child(user.uid)
           postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
               guard let dict = snapshot.value as? [String: Any] else { return }
             let newPost = Post(user: user, dictionary: dict)
+            newPost.key = snapshot.key
+            print(newPost)
               completionHandler(newPost)
               failureHandler(nil)
           }) { (err) in

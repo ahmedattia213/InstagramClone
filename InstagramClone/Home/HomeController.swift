@@ -143,6 +143,7 @@ extension HomeController: HomePostCellDelegate {
     func didTapCommentWithPost(_ post: Post) {
         print("comment tapped on this post ", post.caption)
         let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
+        commentsController.postId = post.key
         commentsController.hidesBottomBarWhenPushed = true   //best solution to hide tabbar
         navigationController?.pushViewController(commentsController, animated: true)
     }

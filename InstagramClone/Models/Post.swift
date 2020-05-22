@@ -9,7 +9,7 @@
 import Foundation
 
 class Post: NSObject {
-
+    var key: String?
     var user: User
     var caption: String?
     var creationDate: Date?
