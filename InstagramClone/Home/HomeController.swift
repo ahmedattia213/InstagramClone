@@ -57,7 +57,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     private func fetchPostsAndAppend(_ user: User) {
         FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
             if let newPost = newPost {
-                if !self.posts.contains(newPost) {
+                if !self.posts.contains(where: {$0.key == newPost.key}) {
                     self.posts.insert(newPost, at: 0)
                     self.collectionView.reloadData()
                 }

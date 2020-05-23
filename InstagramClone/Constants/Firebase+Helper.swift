@@ -49,7 +49,7 @@ class FirebaseHelper {
         let postsRef = FirebaseHelper.userPostsDatabase.child(user.uid)
           postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
               guard let dict = snapshot.value as? [String: Any] else { return }
-            let newPost = Post(user: user, dictionary: dict)
+            var newPost = Post(user: user, dictionary: dict)
             newPost.key = snapshot.key
             print(newPost)
               completionHandler(newPost)

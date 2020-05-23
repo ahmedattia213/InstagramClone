@@ -130,7 +130,7 @@ class HomePostCell: BaseCollectionViewCell {
         let captionText = NSMutableAttributedString(string: "\(user.username ?? "") ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         captionText.append(NSAttributedString(string: post.caption ?? "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: UIColor.black]))
         self.captionButton.setAttributedTitle(captionText, for: .normal)
-        dateLabel.text = (post.creationDate)?.timeAgoAlgorithm(format: "MMM d, yyyy")
+        dateLabel.text = (post.creationDate).timeAgoAlgorithm(format: "MMM d, yyyy")
     }
 
     @objc func handleLikeTapped() {

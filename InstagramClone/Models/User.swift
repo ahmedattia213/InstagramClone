@@ -8,11 +8,11 @@
 
 import Foundation
 
-class User: NSObject {
+struct User {
 
     let uid: String
-    var username: String?
-    var profileImageUrl: String?
+    var username: String
+    var profileImageUrl: String
 
     init(uid: String, dictionary: [String: Any]) {
         self.uid = uid

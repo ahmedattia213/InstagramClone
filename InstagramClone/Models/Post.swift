@@ -8,24 +8,23 @@
 
 import Foundation
 
-class Post: NSObject {
+struct Post {
     var key: String?
     var user: User
-    var caption: String?
-    var creationDate: Date?
-    var imageHeight: NSNumber?
-    var imageWidth: NSNumber?
-    var postUrl: String?
+    var caption: String
+    var creationDate: Date
+    var imageHeight: Int
+    var imageWidth: Int
+    var postUrl: String
 
     init(user: User, dictionary: [String: Any]) {
         self.user = user
-        super.init()
-        caption = dictionary["caption"] as? String
+        caption = dictionary["caption"] as? String ?? ""
         let secondsFrom1970 = dictionary["creationDate"] as? Double ?? 0
         creationDate = Date(timeIntervalSince1970: secondsFrom1970)
-        imageHeight = dictionary["imageHeight"] as? NSNumber
-        imageWidth = dictionary["imageWidth"] as? NSNumber
-        postUrl = dictionary["postUrl"] as? String
+        imageHeight = dictionary["imageHeight"] as? Int ?? 0
+        imageWidth = dictionary["imageWidth"] as? Int ?? 0
+        postUrl = dictionary["postUrl"] as? String ?? ""
     }
 
     static func == (lhs: Post, rhs: Post) -> Bool {

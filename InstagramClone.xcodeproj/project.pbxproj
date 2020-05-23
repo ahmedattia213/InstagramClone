@@ -252,7 +252,6 @@
 				C59D0B2C247528F700584C2B /* CommentsController.swift */,
 				C52B8DF024768DC800F9A185 /* CommentInputAccessoryView.swift */,
 				C52B8DF22476E06000F9A185 /* CommentCell.swift */,
-				C5B0BB79247853EA00484C83 /* Comment.swift */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -317,6 +316,7 @@
 		C5BF76172340F05F00D892FC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C5B0BB79247853EA00484C83 /* Comment.swift */,
 				C5BF76182340F06B00D892FC /* Post.swift */,
 				C503CE832346D6FC00D3C7D7 /* User.swift */,
 			);

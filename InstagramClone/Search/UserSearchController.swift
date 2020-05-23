@@ -44,7 +44,7 @@ UISearchBarDelegate {
             self.filteredUsers = users
         } else {
             self.filteredUsers = self.users.filter { (user) -> Bool in
-                return user.username!.localizedCaseInsensitiveContains(searchText)
+                return user.username.localizedCaseInsensitiveContains(searchText)
             }
         }
         self.collectionView.reloadData()
@@ -59,7 +59,7 @@ UISearchBarDelegate {
                 return
             }
             self.users.append(user)
-            self.users = self.users.sorted(by: { $0.username!.lowercased() < $1.username!.lowercased()})
+            self.users = self.users.sorted(by: { $0.username.lowercased() < $1.username.lowercased()})
             self.filteredUsers = self.users
             self.collectionView.reloadData()
         }) { (err) in

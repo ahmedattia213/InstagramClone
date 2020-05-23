@@ -8,8 +8,7 @@
 
 import Foundation
 
-class Comment {
-    
+struct Comment {
     var user: User
     var text: String
     var uid: String
