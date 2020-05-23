@@ -79,7 +79,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     private func fetchFollowingPosts() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
-        print(currentUserUid, "   CURENT")
         let ref = FirebaseHelper.usersFollowing.child(currentUserUid)
         ref.observe(.childAdded) { (snapshot) in
                 FirebaseHelper.fetchUserWithUid(snapshot.key) { (user) in
@@ -141,7 +140,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
 extension HomeController: HomePostCellDelegate {
     func didTapCommentWithPost(_ post: Post) {
-        print("comment tapped on this post ", post.caption)
         let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
         commentsController.postId = post.key
         commentsController.hidesBottomBarWhenPushed = true   //best solution to hide tabbar
@@ -152,8 +150,23 @@ extension HomeController: HomePostCellDelegate {
         print("settings tapped")
     }
 
-    func didTapLike() {
+    func didTapLike(for cell: HomePostCell) {
         print("like tapped")
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        var post = self.posts[indexPath.row]
+        guard let postId = post.key else { return }
+        guard let currentUserUid = FirebaseHelper.currentUserUid else { return }
+        let values = [currentUserUid: !post.isLiked]
+        FirebaseHelper.likesDatabase.child(postId).updateChildValues(values) { (err, ref) in
+            if let err = err {
+                print("Failed to save like: ", err)
+                return
+            }
+            print("Liked successfully")
+            post.isLiked = !post.isLiked
+            self.posts[indexPath.row] = post
+            self.collectionView.reloadItems(at: [indexPath])
+        }
     }
 
     func didTapSendDm() {

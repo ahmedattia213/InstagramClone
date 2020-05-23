@@ -12,7 +12,7 @@ import SVProgressHUD
 protocol HomePostCellDelegate: class {
     func didTapCommentWithPost(_ post: Post)
     func didTapSettings()
-    func didTapLike()
+    func didTapLike(for cell: HomePostCell)
     func didTapSendDm()
     func didTapBookmark()
 }
@@ -27,6 +27,8 @@ class HomePostCell: BaseCollectionViewCell {
             guard let post = post else { return }
             setupCellWithPost(post)
             setupCellWithUser(post.user)
+            likeButton.tintColor = post.isLiked ? .red : .black
+            likeButton.setImage(post.isLiked ? #imageLiteral(resourceName: "like_selected") : #imageLiteral(resourceName: "like_unselected"), for: .normal)
         }
     }
 
@@ -46,7 +48,7 @@ class HomePostCell: BaseCollectionViewCell {
     let captionButton = UIButton.systemButton(titleColor: .black, font: UIFont.boldSystemFont(ofSize: 13), target: self, selector: #selector(handleCaption))
     let dateLabel = UILabel(text: "", font: UIFont.systemFont(ofSize: 13), color: .lightGray)
 
-    lazy var likeCommentDmStackView = UIStackView(axis: .horizontal, alignment: .fill, distribution: .fillEqually, spacing: 20, arrangedSubviews: [likeButton, commentButton, sendDmButton])
+    lazy var likeCommentDmStackView = UIStackView(axis: .horizontal, alignment: .fill, distribution: .equalSpacing, arrangedSubviews: [likeButton, commentButton, sendDmButton])
 
     lazy var profileDetailsContainer: UIView = {
        let view = UIView()
@@ -61,7 +63,7 @@ class HomePostCell: BaseCollectionViewCell {
     lazy var likeCommentDmContainer: UIView = {
         let view = UIView()
         view.addSubviews(likeCommentDmStackView, bookmarkButton)
-        likeCommentDmStackView.anchor(left: view.leftAnchor, leftConstant: 10, widthConstant: 100, heightConstant: 25, centerYInSuperView: true)
+        likeCommentDmStackView.anchor(left: view.leftAnchor, leftConstant: 10, widthConstant: 105, heightConstant: 35, centerYInSuperView: true)
         bookmarkButton.anchor(right: view.rightAnchor, rightConstant: 7, widthConstant: 25, heightConstant: 25, centerYInSuperView: true)
         return view
     }()
@@ -79,8 +81,18 @@ class HomePostCell: BaseCollectionViewCell {
         setupLikersContainer()
         setupCaptionContainer()
         setupDateLabel()
+        setupButtonTapAreas()
     }
 
+    private func setupButtonTapAreas() {
+        likeButton.anchor(widthConstant: 35, heightConstant: 35)
+        commentButton.anchor(widthConstant: 35, heightConstant: 35)
+        sendDmButton.anchor(widthConstant: 35, heightConstant: 35)
+        likeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -(35/2), bottom: 0, right: 0)
+        commentButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -(35/2), bottom: 0, right: 0)
+        sendDmButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -(35/2), bottom: 0, right: 0)
+    }
+    
     private func setupProfileDetailsContainer() {
         self.addSubview(profileDetailsContainer)
         profileDetailsContainer.anchor(self.topAnchor, left: self.leftAnchor, right: self.rightAnchor, heightConstant: 50)
@@ -133,8 +145,8 @@ class HomePostCell: BaseCollectionViewCell {
         dateLabel.text = (post.creationDate).timeAgoAlgorithm(format: "MMM d, yyyy")
     }
 
-    @objc func handleLikeTapped() {
-        delegate?.didTapLike()
+    @objc func handleLikeTapped(for cell: HomePostCell) {
+        delegate?.didTapLike(for: self)
     }
     @objc func handleCommentTapped() {
         guard let post = self.post else { return }

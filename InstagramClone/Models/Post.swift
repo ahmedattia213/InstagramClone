@@ -16,7 +16,7 @@ struct Post {
     var imageHeight: Int
     var imageWidth: Int
     var postUrl: String
-
+    var isLiked: Bool = false
     init(user: User, dictionary: [String: Any]) {
         self.user = user
         caption = dictionary["caption"] as? String ?? ""

@@ -19,6 +19,7 @@ class FirebaseHelper {
     static let userPostsStorage = Storage.storage().reference().child("user_posts")
     static let userPostsDatabase = Database.database().reference().child("user_posts")
     static let commentsDatabase = Database.database().reference().child("comments")
+    static let likesDatabase = Database.database().reference().child("likes")
     //Fetching User with Uid
     static func fetchUserWithUid(_ uid: String, completionHandler: @escaping (User) -> Void) {
           self.usersDatabase.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -51,7 +52,13 @@ class FirebaseHelper {
               guard let dict = snapshot.value as? [String: Any] else { return }
             var newPost = Post(user: user, dictionary: dict)
             newPost.key = snapshot.key
-            print(newPost)
+            if let uid = currentUserUid {
+                FirebaseHelper.likesDatabase.child(snapshot.key).child(uid).observeSingleEvent(of: .value) { (snapshot) in
+                    if let liked = snapshot.value as? Bool {
+                        newPost.isLiked = liked
+                    }
+                }
+            }
               completionHandler(newPost)
               failureHandler(nil)
           }) { (err) in
