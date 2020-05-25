@@ -89,7 +89,8 @@ class UserProfileHeader: BaseReusableView {
     }()
 
     lazy var userStatsStackView = UIStackView(distribution: .fillEqually, arrangedSubviews: [postsLabel, followersLabel, followingLabel])
-    lazy var bottomToolBarStackview = UIStackView(distribution: .fillEqually, arrangedSubviews: [gridButton, listButton, bookmarkButton])
+//    lazy var bottomToolBarStackview = UIStackView(distribution: .fillEqually, arrangedSubviews: [gridButton, listButton, bookmarkButton])
+    lazy var bottomToolBarStackview = UIStackView(distribution: .fillEqually, arrangedSubviews: [gridButton, bookmarkButton])
 
     lazy var usernameLabel = UILabel(text: self.user?.username, font: UIFont.boldSystemFont(ofSize: 11), color: .black)
 

@@ -14,6 +14,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     var posts = [Post]() {
         didSet {
+            
         }
     }
 
@@ -121,6 +122,12 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         return UICollectionReusableView()
     }
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = UserFeedController(collectionViewLayout: UICollectionViewFlowLayout())
+        vc.posts = posts
+        vc.indexPath = indexPath
+        navigationController?.pushViewController(vc, animated: true)
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 250)
     }

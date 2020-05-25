@@ -77,7 +77,6 @@ open class ImagePicker: NSObject {
     
     private func pickerController(_ controller: UIImagePickerController, didSelect media: Any?) {
         controller.dismiss(animated: true, completion: nil)
-        
         self.delegate?.didSelect(selectedMedia: media)
     }
 }
