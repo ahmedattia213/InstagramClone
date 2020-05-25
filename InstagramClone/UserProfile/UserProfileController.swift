@@ -14,7 +14,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
     var posts = [Post]() {
         didSet {
-            
+            self.user?.posts = posts.count
         }
     }
 
@@ -23,9 +23,49 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             self.navigationItem.title = self.user?.username
             observePosts()
             setupNavbar()
+            observeFollowing()
+            observeFollowers()
         }
     }
+    var following = [String]() {
+        didSet {
+            self.user?.followingCount = following.count
+        }
+    }
+    var followers = [String]() {
+        didSet {
+            self.user?.followerCount = followers.count
+        }
+    }
+ 
+    func observeFollowing() {
+        guard let user = user else { return }
+        let followingRef = FirebaseHelper.usersFollowing.child(user.uid)
+        followingRef.observe(.childAdded, with: { (snapshot) in
+            if !self.following.contains(snapshot.key) {
+                self.following.append(snapshot.key)
+            }
+            self.collectionView.reloadData()
+        }) { (err) in
+            print("ERROR ",err)
+        }
 
+    }
+    func observeFollowers() {
+        guard let user = user else { return }
+        let followerRef = FirebaseHelper.usersFollowers.child(user.uid)
+        followerRef.observe(.childAdded, with: { (snapshot) in
+            print(snapshot)
+            if !self.followers.contains(snapshot.key) {
+                self.followers.append(snapshot.key)
+            }
+            self.collectionView.reloadData()
+
+        }) { (err) in
+            print("ERROR ",err)
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIfUserExists()
@@ -48,15 +88,17 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     private func observePosts() {
         guard let user = self.user else { return }
         FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
-                  if let newPost = newPost {
-                      self.posts.insert(newPost, at: 0)
-                      self.collectionView.reloadData()
-                  }
-              }) { (err) in
-                  if let err = err {
-                      print(err)
-                  }
-              }
+            if let newPost = newPost {
+                if !self.posts.contains(where: {$0.key == newPost.key}) {
+                    self.posts.insert(newPost, at: 0)
+                    self.collectionView.reloadData()
+                }
+            }
+        }) { (err) in
+            if let err = err {
+                print(err)
+            }
+        }
     }
 
     private func setupLogoutButton() {
@@ -125,6 +167,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = UserFeedController(collectionViewLayout: UICollectionViewFlowLayout())
         vc.posts = posts
+        vc.user = posts[indexPath.row].user
         vc.indexPath = indexPath
         navigationController?.pushViewController(vc, animated: true)
     }

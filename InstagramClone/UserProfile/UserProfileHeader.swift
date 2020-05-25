@@ -19,7 +19,22 @@ class UserProfileHeader: BaseReusableView {
             usernameLabel.text = user?.username
             checkIfUserIsCurrent()
             setupEditFollowButton()
+            setupFollowingAndFollowersLabel()
+            setupPostsLabel()
         }
+    }
+    private func setupPostsLabel() {
+        let postsAttributedText = NSMutableAttributedString(string: "\(user?.posts ?? 0)\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        postsAttributedText.append(NSMutableAttributedString(string: "Posts", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11), NSAttributedString.Key.foregroundColor: UIColor.black]))
+        postsLabel.attributedText = postsAttributedText
+    }
+    private func setupFollowingAndFollowersLabel() {
+        let followersAttributedText = NSMutableAttributedString(string: "\(user?.followerCount ?? 0)\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        followersAttributedText.append(NSMutableAttributedString(string: "Followers", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11), NSAttributedString.Key.foregroundColor: UIColor.black]))
+        followersLabel.attributedText = followersAttributedText
+        let followingAttributedText = NSMutableAttributedString(string: "\(user?.followingCount ?? 0)\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        followingAttributedText.append(NSMutableAttributedString(string: "Following", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11), NSAttributedString.Key.foregroundColor: UIColor.black]))
+        followingLabel.attributedText = followingAttributedText
     }
 
     static let reuseId = "UserProfileHeaderReuseId"
@@ -164,28 +179,45 @@ class UserProfileHeader: BaseReusableView {
     private func unfollowUser() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         guard let userId = self.user?.uid else { return }
-        let ref = FirebaseHelper.usersFollowing.child(currentUserUid).child(userId)
-        ref.removeValue { (err, _) in
+        let followingRef = FirebaseHelper.usersFollowing.child(currentUserUid).child(userId)
+        let followerRef = FirebaseHelper.usersFollowers.child(userId).child(currentUserUid)
+        followingRef.removeValue { (err, _) in
             if let err = err {
                 print("Couldnt unfollow user ", err)
                 return
             }
             self.userFollowed = nil
             print("Successfully unfollowed user")
+            followerRef.removeValue { (err, _) in
+                if let err = err {
+                    print("Couldnt remove from followers: ", err)
+                    return
+                }
+                print("Successfully removed from user's followers")
+            }
         }
     }
     private func followUser() {
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         guard let userId = self.user?.uid else { return }
-        let ref = FirebaseHelper.usersFollowing.child(currentUserUid)
-        let values = [userId: true]
-        ref.updateChildValues(values) { (err, _) in
+        let followingRef = FirebaseHelper.usersFollowing.child(currentUserUid)
+        let followersRef = FirebaseHelper.usersFollowers.child(userId)
+        let followingValues = [userId: true]
+        let followerValues = [currentUserUid: true]
+        followingRef.updateChildValues(followingValues) { (err, _) in
             if let err = err {
                 print("Failed to follow user: ", err)
                 return
             }
             self.userFollowed = true
             print("Successfully followed user: ", self.user?.username ?? "")
+            followersRef.updateChildValues(followerValues) { (err, ref) in
+                if let err = err {
+                    print("Failed to add user to followers: ", err)
+                    return
+                }
+                print("User added to followers successfully")
+            }
         }
     }
     private func goToEditProfile() {

@@ -10,6 +10,7 @@ import UIKit
 
 class UserFeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var posts = [Post]()
+    var user: User?
     var indexPath: IndexPath? {
         didSet {
             collectionView.scrollToItem(at: indexPath ?? IndexPath(item: 0, section: 0), at: .top, animated: false)
@@ -21,12 +22,13 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return refreshControl
     }()
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         setupCollectionView()
     }
-    
+
     private func setupNavBar() {
         navigationItem.title = "Posts"
     }
@@ -51,22 +53,18 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 560)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
     @objc func handleRefresh() {
-        //fetchMyPosts
+        fetchUsersPosts()
     }
-    private func fetchAllPosts() {
-        posts.removeAll()
-        fetchMyPosts()
-    }
-    private func fetchMyPosts() {
-        
+    private func fetchUsersPosts() {
+        observePosts()
     }
     private func observePosts() {
-        guard let uid = FirebaseHelper.currentUserUid else { return }
+        guard let uid = user?.uid else { return }
         FirebaseHelper.fetchUserWithUid(uid) { (user) in
             self.fetchPostsAndAppend(user)
         }
@@ -89,17 +87,17 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
 }
 extension UserFeedController: HomePostCellDelegate {
     func didTapSettings() {
-            
+
     }
-    
+
     func didTapSendDm() {
-            
+
     }
-    
+
     func didTapBookmark() {
-            
+
     }
-    
+
     func didTapCommentWithPost(_ post: Post) {
         let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
         commentsController.postId = post.key

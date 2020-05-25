@@ -106,7 +106,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     private func fetchAllPosts() {
-        posts.removeAll()
         observePosts()
         fetchFollowingPosts()
     }

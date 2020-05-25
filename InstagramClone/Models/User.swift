@@ -13,7 +13,9 @@ struct User {
     let uid: String
     var username: String
     var profileImageUrl: String
-
+    var followingCount: Int? = 0
+    var followerCount: Int? = 0
+    var posts: Int? = 0
     init(uid: String, dictionary: [String: Any]) {
         self.uid = uid
         username = dictionary["username"] as? String ?? ""

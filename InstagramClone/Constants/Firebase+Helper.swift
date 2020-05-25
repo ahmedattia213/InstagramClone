@@ -14,6 +14,7 @@ class FirebaseHelper {
     //Database
     static let usersDatabase = Database.database().reference().child("users")
     static let usersFollowing = Database.database().reference().child("following")
+    static let usersFollowers = Database.database().reference().child("followers")
     //Storage
     static let profileImages = Storage.storage().reference().child("profile_images")
     static let userPostsStorage = Storage.storage().reference().child("user_posts")
