@@ -38,7 +38,8 @@ class FirebaseHelper {
             guard let dict = snapshot.value as? [String: Any] else { completionHandler(nil) ; return }
             guard let userUid = dict["uid"] as? String else { completionHandler(nil) ; return }
             fetchUserWithUid(userUid) { (user) in
-                let comment = Comment(user: user, dictionary: dict)
+                var comment = Comment(user: user, dictionary: dict)
+                comment.key = snapshot.key
                 completionHandler(comment)
                 print("Fetched Comment Successfully")
             }
@@ -47,6 +48,7 @@ class FirebaseHelper {
             print("Failed to retrieve comments for Post: ", err)
         }
     }
+ 
     static func observePostsWithUid(_ user: User, completionHandler: @escaping (Post?) -> Void, failureHandler: @escaping(_ errorMessage: String?) -> Void) {
         let postsRef = FirebaseHelper.userPostsDatabase.child(user.uid)
           postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
@@ -55,12 +57,17 @@ class FirebaseHelper {
             newPost.key = snapshot.key
             if let uid = currentUserUid {
                 FirebaseHelper.likesDatabase.child(snapshot.key).child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                    if let liked = snapshot.value as? Bool {
+                    if let liked = snapshot.value as? Bool, liked {
                         newPost.isLiked = liked
+                        if !newPost.likersUids.contains(snapshot.key) {
+                            newPost.likersUids.append(snapshot.key)
+                        }
                     }
+                    completionHandler(newPost)
                 }
+            } else {
+                completionHandler(newPost)
             }
-              completionHandler(newPost)
               failureHandler(nil)
           }) { (err) in
             completionHandler(nil)

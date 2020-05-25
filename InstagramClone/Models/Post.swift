@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Post {
+struct Post: Equatable  {
     var key: String?
     var user: User
     var caption: String
@@ -17,6 +17,8 @@ struct Post {
     var imageWidth: Int
     var postUrl: String
     var isLiked: Bool = false
+    var likersUids = [String]()
+    var comments = [Comment]()
     init(user: User, dictionary: [String: Any]) {
         self.user = user
         caption = dictionary["caption"] as? String ?? ""
@@ -28,9 +30,6 @@ struct Post {
     }
 
     static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.user == rhs.user && lhs.caption == rhs.caption && lhs.creationDate == rhs.creationDate
-            && lhs.imageHeight == rhs.imageHeight
-            && lhs.imageWidth == rhs.imageWidth
-            && lhs.postUrl == rhs.postUrl
+        return lhs.key == rhs.key
     }
 }

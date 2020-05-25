@@ -22,17 +22,47 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return refreshControl
     }()
- 
+    var postComments = [String: [Comment]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         setupCollectionView()
     }
-
+    
     private func setupNavBar() {
         navigationItem.title = "Posts"
     }
-    
+    private func fetchComments(for post: Post?) {
+        guard let passedPost = post else { return }
+        guard let postId = passedPost.key else { return }
+        var newPost = passedPost
+        FirebaseHelper.observeCommentsWithPostId(postId, completionHandler: { (comment) in
+            guard let comment  = comment else { return }
+            var commentsArray = [Comment]()
+            if self.postComments[postId] != nil {
+                commentsArray = self.postComments[postId]!
+            }
+            if !(commentsArray.contains(where: {$0.key == comment.key})) {
+                commentsArray.append(comment)
+                print(comment.text, "   dakhl")
+            }
+            if self.postComments[postId] != nil {
+                self.postComments.updateValue(commentsArray, forKey: postId)
+            } else {
+                self.postComments[postId] = commentsArray
+            }
+            
+            print(commentsArray, "   " , comment.text , "    MA AHO")
+            newPost.comments = commentsArray
+            if let index = self.posts.firstIndex(of: passedPost) {
+                self.posts[index] = newPost
+            }
+            self.collectionView.reloadData()
+        }) { (errMessage) in
+            print(errMessage)
+        }
+    }
     private func setupCollectionView() {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = .white
@@ -53,7 +83,7 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 560)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 7
     }
@@ -74,6 +104,7 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
             if let newPost = newPost {
                 if !self.posts.contains(where: {$0.key == newPost.key}) {
                     self.posts.insert(newPost, at: 0)
+                    self.fetchComments(for: newPost)
                     self.collectionView.reloadData()
                 }
             }
@@ -86,25 +117,31 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     }
 }
 extension UserFeedController: HomePostCellDelegate {
+    func didTapViewComments(_ post: Post) {
+        showCommentsControllerForPost(post)
+    }
     func didTapSettings() {
-
+        
     }
-
+    
     func didTapSendDm() {
-
+        
     }
-
+    
     func didTapBookmark() {
-
+        
     }
-
+    
     func didTapCommentWithPost(_ post: Post) {
+        showCommentsControllerForPost(post)
+    }
+    
+    func showCommentsControllerForPost(_ post: Post) {
         let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
         commentsController.postId = post.key
         commentsController.hidesBottomBarWhenPushed = true   //best solution to hide tabbar
         navigationController?.pushViewController(commentsController, animated: true)
     }
-
     func didTapLike(for cell: HomePostCell) {
         print("like tapped")
         guard let indexPath = collectionView.indexPath(for: cell) else { return }

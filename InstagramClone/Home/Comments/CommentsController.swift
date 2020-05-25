@@ -46,7 +46,7 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let text = "\(String(describing: comments[indexPath.row].user.username)) \(comments[indexPath.item].text)"
-        let height = Int(estimateFrameForText(text: text, font: UIFont.systemFont(ofSize: 15)).height) + 30
+        let height = Int(estimateFrameForText(text: text, font: UIFont.systemFont(ofSize: 15)).height) + 40
         return CGSize(width: view.frame.width, height: CGFloat(max(50, height)))
     }
 

@@ -109,3 +109,28 @@ extension UIView {
         anchorCenterYToSuperview(constant: constantY)
     }
 }
+
+extension UIView {
+
+    public func removeAllConstraints() {
+        var msuperview = self.superview
+
+        while let superview = msuperview {
+            for constraint in superview.constraints {
+
+                if let first = constraint.firstItem as? UIView, first == self {
+                    superview.removeConstraint(constraint)
+                }
+
+                if let second = constraint.secondItem as? UIView, second == self {
+                    superview.removeConstraint(constraint)
+                }
+            }
+
+            msuperview = superview.superview
+        }
+
+        self.removeConstraints(self.constraints)
+        self.translatesAutoresizingMaskIntoConstraints = true
+    }
+}

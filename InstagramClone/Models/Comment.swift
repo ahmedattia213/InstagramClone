@@ -9,6 +9,7 @@
 import Foundation
 
 struct Comment {
+    var key: String? 
     var user: User
     var text: String
     var uid: String
