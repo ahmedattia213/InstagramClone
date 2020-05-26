@@ -107,7 +107,8 @@ class CommentInputAccessoryView: UIView, UITextViewDelegate {
         setupCommentTextViewContainerSubviews()
         profileImageView.backgroundColor = .purple
         profileImageView.roundCircular(width: 40)
-        profileImageView.image = UIImage(named: "ahmed")
+        profileImageView.backgroundColor = .lightGray
+
     }
     
     private func setupSubviews() {

@@ -109,7 +109,7 @@ class UserProfileHeader: BaseReusableView {
 
     lazy var usernameLabel = UILabel(text: self.user?.username, font: UIFont.boldSystemFont(ofSize: 11), color: .black)
 
-    let profileImageView = UIImageView(image: #imageLiteral(resourceName: "ahmed"), contentMode: .scaleAspectFill)
+    let profileImageView = UIImageView(image: nil, contentMode: .scaleAspectFill)
 
     override func setupViews() {
         setupUI()
@@ -118,6 +118,7 @@ class UserProfileHeader: BaseReusableView {
 
     private func setupUI() {
         backgroundColor = .background
+        profileImageView.backgroundColor = .lightGray
         addSubviews(profileImageView, bottomToolBarStackview, usernameLabel, userStatsStackView,
                     editProfileButton)
         setupProfileImageView()

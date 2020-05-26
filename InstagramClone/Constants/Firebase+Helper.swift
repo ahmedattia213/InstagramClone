@@ -48,19 +48,24 @@ class FirebaseHelper {
             print("Failed to retrieve comments for Post: ", err)
         }
     }
- 
+    
     static func observePostsWithUid(_ user: User, completionHandler: @escaping (Post?) -> Void, failureHandler: @escaping(_ errorMessage: String?) -> Void) {
         let postsRef = FirebaseHelper.userPostsDatabase.child(user.uid)
-          postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
-              guard let dict = snapshot.value as? [String: Any] else { return }
+        postsRef.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
+            guard let dict = snapshot.value as? [String: Any] else { return }
             var newPost = Post(user: user, dictionary: dict)
             newPost.key = snapshot.key
             if let uid = currentUserUid {
-                FirebaseHelper.likesDatabase.child(snapshot.key).child(uid).observeSingleEvent(of: .value) { (snapshot) in
-                    if let liked = snapshot.value as? Bool, liked {
-                        newPost.isLiked = liked
-                        if !newPost.likersUids.contains(snapshot.key) {
-                            newPost.likersUids.append(snapshot.key)
+                FirebaseHelper.likesDatabase.child(snapshot.key).observeSingleEvent(of: .value) { (snapshot) in
+                    print(snapshot.value)
+                    if let dict = snapshot.value as? [String: Bool] {
+                        for (key, value) in dict {
+                            if key == uid {
+                                newPost.isLiked = value
+                            }
+                            if !newPost.likersUids.contains(key) {
+                                newPost.likersUids.append(key)
+                            }
                         }
                     }
                     completionHandler(newPost)
@@ -68,11 +73,11 @@ class FirebaseHelper {
             } else {
                 completionHandler(newPost)
             }
-              failureHandler(nil)
-          }) { (err) in
+            failureHandler(nil)
+        }) { (err) in
             completionHandler(nil)
             failureHandler(err.localizedDescription)
-              print("Failed to retreive latest post: ", err)
-          }
-      }
+            print("Failed to retreive latest post: ", err)
+        }
+    }
 }

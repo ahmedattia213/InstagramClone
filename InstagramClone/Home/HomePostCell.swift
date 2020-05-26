@@ -99,7 +99,7 @@ class HomePostCell: BaseCollectionViewCell {
     private func setupProfileDetailsContainer() {
         self.addSubview(profileDetailsContainer)
         profileDetailsContainer.anchor(self.topAnchor, left: self.leftAnchor, right: self.rightAnchor, heightConstant: 50)
-        postProfileImageView.backgroundColor = .red
+        postProfileImageView.backgroundColor = .lightGray
     }
     
     private func setupLikeCommentDmContainer() {

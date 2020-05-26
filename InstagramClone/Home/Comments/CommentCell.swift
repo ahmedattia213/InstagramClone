@@ -10,7 +10,7 @@ import UIKit
 
 class CommentCell: UICollectionViewCell {
     static let reuseId = "CommentCellReuseIdentifier"
-    let profileImageView = UIImageView(image: UIImage(named: "ahmed"), contentMode: .scaleAspectFill, cornerRadius: 20, userInteraction: true)
+    let profileImageView = UIImageView(image: nil, contentMode: .scaleAspectFill, cornerRadius: 20, userInteraction: true)
     let textView = UITextView(text: "Hi ezayak el soora to7fa", font: UIFont.systemFont(ofSize: 13), color: .black, isEditable: false)
     let dateLabel = UILabel(text: "30m", font: UIFont.systemFont(ofSize: 13), color: .lightGray)
     lazy var likeButton = UIButton.systemButton(image: #imageLiteral(resourceName: "like_unselected"), tintColor: .black, target: self, selector: #selector(handleCommentLike))
@@ -34,6 +34,7 @@ class CommentCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         textView.isScrollEnabled = false
+        profileImageView.backgroundColor = .lightGray
         addSubviews(profileImageView, textView, dateLabel)
         profileImageView.anchor(topAnchor, left: leftAnchor, topConstant: 3, leftConstant: 3,  widthConstant: 40, heightConstant: 40)
         textView.anchor(topAnchor, left: profileImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 3, leftConstant: 3, bottomConstant: 20, rightConstant: 3)
