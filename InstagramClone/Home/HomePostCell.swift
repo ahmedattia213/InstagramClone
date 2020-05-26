@@ -187,7 +187,7 @@ class HomePostCell: BaseCollectionViewCell {
 
     private func setupLikeButton() {
         guard let liked = post?.isLiked else { return }
-        likeButton.tintColor = liked ? .red : .black
+        likeButton.tintColor = liked ? UIColor(hex: 0xe73146) : .black
         likeButton.setImage(liked ? #imageLiteral(resourceName: "like_selected") : #imageLiteral(resourceName: "like_unselected"), for: .normal)
     }
 

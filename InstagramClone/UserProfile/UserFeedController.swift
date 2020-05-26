@@ -26,12 +26,18 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchCommentForPosts()
         setupNavBar()
         setupCollectionView()
     }
     
     private func setupNavBar() {
         navigationItem.title = "Posts"
+    }
+    private func fetchCommentForPosts() {
+        for post in posts {
+            fetchComments(for: post)
+        }
     }
     private func fetchComments(for post: Post?) {
         guard let passedPost = post else { return }
@@ -45,15 +51,13 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
             }
             if !(commentsArray.contains(where: {$0.key == comment.key})) {
                 commentsArray.append(comment)
-                print(comment.text, "   dakhl")
             }
             if self.postComments[postId] != nil {
                 self.postComments.updateValue(commentsArray, forKey: postId)
             } else {
                 self.postComments[postId] = commentsArray
             }
-            
-            print(commentsArray, "   " , comment.text , "    MA AHO")
+
             newPost.comments = commentsArray
             if let index = self.posts.firstIndex(of: passedPost) {
                 self.posts[index] = newPost
@@ -81,7 +85,7 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 560)
+        return CGSize(width: view.frame.width, height: 580)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -143,7 +147,6 @@ extension UserFeedController: HomePostCellDelegate {
         navigationController?.pushViewController(commentsController, animated: true)
     }
     func didTapLike(for cell: HomePostCell) {
-        print("like tapped")
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         var post = self.posts[indexPath.row]
         guard let postId = post.key else { return }
@@ -156,6 +159,13 @@ extension UserFeedController: HomePostCellDelegate {
             }
             print("Liked successfully")
             post.isLiked = !post.isLiked
+            if post.isLiked {
+                post.likersUids.append(currentUserUid)
+            } else {
+                if let index = post.likersUids.firstIndex(of: currentUserUid) {
+                    post.likersUids.remove(at: index)
+                }
+            }
             self.posts[indexPath.row] = post
             self.collectionView.reloadItems(at: [indexPath])
         }

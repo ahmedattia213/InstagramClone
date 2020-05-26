@@ -111,9 +111,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         guard let currentUserUid = Auth.auth().currentUser?.uid else { return }
         let ref = FirebaseHelper.usersFollowing.child(currentUserUid)
         ref.observe(.childAdded) { (snapshot) in
-                FirebaseHelper.fetchUserWithUid(snapshot.key) { (user) in
-                    self.fetchPostsAndAppend(user)
-                }
+            FirebaseHelper.fetchUserWithUid(snapshot.key) { (user) in
+                self.fetchPostsAndAppend(user)
+            }
         }
     }
 
