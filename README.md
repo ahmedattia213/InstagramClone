@@ -38,7 +38,7 @@ acquires many cool features that I will illustrate here and you can use it in yo
 
 ## User Feed 
 * The Same as the Home feed but for specific users' posts only
-<img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2959.PNG" width="200" height="400">
+<img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2949.PNG" width="200" height="400">
 
 ## User Profile (Mastering Header View of collection views, you can do alot with a header view)
 * The ability to logout (Authentication).
