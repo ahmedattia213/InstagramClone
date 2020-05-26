@@ -14,7 +14,7 @@ acquires many cool features that I will illustrate here and you can use it in yo
 * Switch Cameras (Front,Rear)
 * Tap To Focus
 * Browsing Camera Roll To View
-![BeforeCapturing](https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2944.PNG)
+![BeforeCapturing](https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2944.PNG width="200" height="400")
 
 ### After Capturing or browsing
 * Viewing them on a preview view.
