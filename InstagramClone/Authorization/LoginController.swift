@@ -94,6 +94,7 @@ class LoginController: UIViewController {
                 print("Failed to log in: ", err)
                 return
             }
+            FirebaseHelper.currentUserUid = Auth.auth().currentUser?.uid
           //  self.present(MainTabBarController(), animated: true, completion: nil)
             guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
             mainTabBarController.setupViewControllers()

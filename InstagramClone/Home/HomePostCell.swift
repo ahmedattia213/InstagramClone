@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 protocol HomePostCellDelegate: class {
     func didTapCommentWithPost(_ post: Post)
@@ -72,7 +71,7 @@ class HomePostCell: BaseCollectionViewCell {
     }()
     
     @objc func handleCaption() {
-        print("HEY THERE")
+
     }
     
     override func setupViews() {

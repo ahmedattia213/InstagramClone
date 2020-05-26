@@ -10,7 +10,7 @@ import Firebase
 
 class FirebaseHelper {
     //Current User Uid
-    static let currentUserUid = Auth.auth().currentUser?.uid
+    static var currentUserUid = Auth.auth().currentUser?.uid
     //Database
     static let usersDatabase = Database.database().reference().child("users")
     static let usersFollowing = Database.database().reference().child("following")

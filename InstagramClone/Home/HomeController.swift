@@ -40,7 +40,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             }
             if !(commentsArray.contains(where: {$0.key == comment.key})) {
                 commentsArray.append(comment)
-                print(comment.text, "   dakhl")
             }
             if self.postComments[postId] != nil {
                 self.postComments.updateValue(commentsArray, forKey: postId)
@@ -48,7 +47,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
                 self.postComments[postId] = commentsArray
             }
 
-            print(commentsArray, "   " , comment.text , "    MA AHO")
             newPost.comments = commentsArray
             if let index = self.posts.firstIndex(of: passedPost) {
                 self.posts[index] = newPost
@@ -187,7 +185,6 @@ extension HomeController: HomePostCellDelegate {
         print("settings tapped")
     }
     func didTapLike(for cell: HomePostCell) {
-        print("like tapped")
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         var post = self.posts[indexPath.row]
         guard let postId = post.key else { return }

@@ -126,6 +126,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             do {
                 try Auth.auth().signOut()
                 let navController = UINavigationController(rootViewController: LoginController())
+                navController.modalPresentationStyle = .fullScreen
                 self.present(navController, animated: true, completion: nil)
             } catch let signoutError {
                 print("Failed to signout: ", signoutError)
