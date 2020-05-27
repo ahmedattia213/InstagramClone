@@ -6,22 +6,6 @@ acquires many cool features that I will illustrate here and you can use it in yo
 ![Finished App](https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/720p.mov)
 ![Finished App2](https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/720p2.mov)
 
-## Camera Controller (AVFoundation)
-### Before Capturing
-* Ability to Capture Pictures
-* Ability to Captuer Videos
-* Turn On/Off Flash
-* Switch Cameras (Front,Rear)
-* Tap To Focus
-* Browsing Camera Roll To View
-<img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2944.PNG" width="200" height="400">
-
-### After Capturing or browsing
-* Viewing them on a preview view.
-* Saving videos/pictures To Camera Roll
-* Videos Playback infinitely
-<img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2956.PNG" width="200" height="400">
-
 ## Home Feed (CollectionView)
 * Viewing Posts in a chronological order. ( And depending on who you're following )
 * Ability to like (Saved in a likes' node for each post)
@@ -46,6 +30,22 @@ acquires many cool features that I will illustrate here and you can use it in yo
 * Following/Followers numbers' fetched.
 * Instagram gridview at its finest.
 <img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2946.PNG" width="200" height="400">
+
+## Camera Controller (AVFoundation)
+### Before Capturing
+* Ability to Capture Pictures
+* Ability to Captuer Videos
+* Turn On/Off Flash
+* Switch Cameras (Front,Rear)
+* Tap To Focus
+* Browsing Camera Roll To View
+<img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2944.PNG" width="200" height="400">
+
+### After Capturing or browsing
+* Viewing them on a preview view.
+* Saving videos/pictures To Camera Roll
+* Videos Playback infinitely
+<img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2956.PNG" width="200" height="400">
 
 ### This was a kind of brief instructions but there is a lot going in inside the codebase,
 ### Clone and add your signing and capabilites to be able to check out the rest of the features
