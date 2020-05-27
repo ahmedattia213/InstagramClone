@@ -23,7 +23,7 @@ acquires many cool features that I will illustrate here and you can use it in yo
 <img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2956.PNG" width="200" height="400">
 
 ## Home Feed (CollectionView)
-* Viewing Posts in a chronological order. ( And depening on who you're following )
+* Viewing Posts in a chronological order. ( And depending on who you're following )
 * Ability to like (Saved in a likes' node for each post)
 * Ability to comment (Saved in a comments' node for each post)
 <img src="https://github.com/ahmedattia213/InstagramClone/blob/master/illustrationfiles/IMG_2952.PNG" width="200" height="400">
