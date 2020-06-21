@@ -49,6 +49,16 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         }) { (err) in
             print("ERROR ",err)
         }
+        
+        followingRef.observe(.childRemoved, with: { (snapshot) in
+            if self.following.contains(snapshot.key) {
+                if let index = self.following.firstIndex(of: snapshot.key) {
+                    self.following.remove(at: index)
+                }
+            }
+        }) { (err) in
+            print("ERROR ",err)
+        }
 
     }
     func observeFollowers() {
@@ -60,7 +70,17 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
                 self.followers.append(snapshot.key)
             }
             self.collectionView.reloadData()
-
+            
+        }) { (err) in
+            print("ERROR ",err)
+        }
+        
+        followerRef.observe(.childRemoved, with: { (snapshot) in
+            if self.followers.contains(snapshot.key) {
+                if let index = self.followers.firstIndex(of: snapshot.key) {
+                    self.followers.remove(at: index)
+                }
+            }
         }) { (err) in
             print("ERROR ",err)
         }
@@ -89,7 +109,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         guard let user = self.user else { return }
         FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
             if let newPost = newPost {
-                if !self.posts.contains(where: {$0.key == newPost.key}) {
+                if !self.posts.contains(newPost) {
+                    
                     self.posts.insert(newPost, at: 0)
                     self.collectionView.reloadData()
                 }
@@ -170,9 +191,20 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         vc.posts = posts
         vc.user = posts[indexPath.row].user
         vc.indexPath = indexPath
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 250)
     }
+}
+
+extension UserProfileController: UserFeedDelegate {
+    func didTapLike(indexPath: IndexPath, newPost: Post) {
+        print("HELLO")
+        self.posts[indexPath.row] = newPost
+        self.collectionView.reloadItems(at: [indexPath])
+    }
+    
+    
 }

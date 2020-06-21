@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol UserFeedDelegate: class {
+    func didTapLike(indexPath: IndexPath, newPost: Post)
+}
 class UserFeedController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var posts = [Post]()
     var user: User?
+    var delegate: UserFeedDelegate?
     var indexPath: IndexPath? {
         didSet {
             collectionView.scrollToItem(at: indexPath ?? IndexPath(item: 0, section: 0), at: .top, animated: false)
@@ -125,17 +129,17 @@ extension UserFeedController: HomePostCellDelegate {
         showCommentsControllerForPost(post)
     }
     func didTapSettings() {
-        
+
     }
-    
+
     func didTapSendDm() {
-        
+
     }
-    
+
     func didTapBookmark() {
-        
+
     }
-    
+
     func didTapCommentWithPost(_ post: Post) {
         showCommentsControllerForPost(post)
     }
@@ -167,7 +171,9 @@ extension UserFeedController: HomePostCellDelegate {
                 }
             }
             self.posts[indexPath.row] = post
+            self.delegate?.didTapLike(indexPath: indexPath, newPost: post)
             self.collectionView.reloadItems(at: [indexPath])
         }
+        
     }
 }

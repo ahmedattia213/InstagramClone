@@ -30,6 +30,6 @@ struct Post: Equatable  {
     }
 
     static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.key == rhs.key
+        return lhs.key == rhs.key && lhs.isLiked == rhs.isLiked
     }
 }

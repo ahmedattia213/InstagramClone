@@ -86,7 +86,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     private func fetchPostsAndAppend(_ user: User) {
         FirebaseHelper.observePostsWithUid(user, completionHandler: { (newPost) in
             if let newPost = newPost {
-                if !self.posts.contains(where: {$0.key == newPost.key}) {
+                if !self.posts.contains(newPost) {
                     self.posts.insert(newPost, at: 0)
                     self.fetchComments(for: newPost)
                     self.collectionView.reloadData()
@@ -132,6 +132,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }()
 
     @objc func handleRefresh() {
+        posts.removeAll()
         fetchAllPosts()
     }
 
